@@ -3,12 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
+import bcrypt from "bcryptjs";
 import {
   rooms,
   roomTiers,
   services,
   leisureSites,
   bookings,
+  adminUsers,
 } from "@/lib/schema";
 import { eq } from "drizzle-orm";
 
@@ -164,4 +166,47 @@ export async function cancelBooking(id: string) {
     .where(eq(bookings.id, id));
 
   revalidatePath("/admin/bookings");
+}
+
+// --- ADMIN USERS ---
+
+export async function createAdminUser(formData: FormData) {
+  const email = formData.get("email") as string;
+  const name = formData.get("name") as string;
+  const password = formData.get("password") as string;
+
+  const id = `admin-${crypto.randomUUID()}`;
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+  try {
+    await db.insert(adminUsers).values({ id, email, name, hashedPassword });
+  } catch {
+    // duplicate email — redirect back without inserting
+  }
+
+  revalidatePath("/admin/users");
+  redirect("/admin/users");
+}
+
+export async function updateAdminUser(formData: FormData) {
+  const id = formData.get("id") as string;
+  const name = formData.get("name") as string;
+  const password = formData.get("password") as string;
+
+  if (name || password) {
+    const updates: { name?: string; hashedPassword?: string } = {};
+    if (name) updates.name = name;
+    if (password) updates.hashedPassword = await bcrypt.hash(password, 12);
+    await db.update(adminUsers).set(updates).where(eq(adminUsers.id, id));
+  }
+
+  revalidatePath("/admin/users");
+  redirect("/admin/users");
+}
+
+export async function deleteAdminUser(id: string) {
+  await db.delete(adminUsers).where(eq(adminUsers.id, id));
+
+  revalidatePath("/admin/users");
+  redirect("/admin/users");
 }
