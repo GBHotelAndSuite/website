@@ -14,6 +14,9 @@ const client = createClient({
   url: `file:${dbPath}`,
 });
 
+await client.execute("PRAGMA journal_mode=WAL");
+await client.execute("PRAGMA busy_timeout=5000");
+
 await client.executeMultiple(
   `CREATE TABLE IF NOT EXISTS room_tiers (
     id TEXT PRIMARY KEY, name TEXT NOT NULL, description TEXT, sort_order INTEGER DEFAULT 0
