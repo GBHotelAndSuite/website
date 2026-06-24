@@ -232,17 +232,25 @@ async function seed() {
   }
   console.log("✓ Site settings seeded");
 
-  // Admin user (password: admin123)
-  const hashedPassword = await bcrypt.hash("admin123", 12);
+  // Admin user — read credentials from env vars
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@grandvista.com";
+  const adminPassword = process.env.ADMIN_PASSWORD;
+
+  if (!adminPassword) {
+    console.error("ADMIN_PASSWORD environment variable is required");
+    process.exit(1);
+  }
+
+  const hashedPassword = await bcrypt.hash(adminPassword, 12);
 
   await db.insert(adminUsers).values({
     id: "admin-1",
-    email: "admin@grandvista.com",
+    email: adminEmail,
     name: "Admin",
     hashedPassword,
   });
 
-  console.log("✓ Admin user seeded (admin@grandvista.com / admin123)");
+  console.log(`✓ Admin user seeded (${adminEmail} / ${adminPassword})`);
   console.log("Seeding complete!");
 }
 

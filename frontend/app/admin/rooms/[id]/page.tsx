@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { rooms, roomTiers } from "@/lib/schema";
 import { eq, asc } from "drizzle-orm";
-import { updateRoom, createRoom } from "@/lib/actions/admin";
+import { updateRoom, createRoom, deleteRoom } from "@/lib/actions/admin";
 
 export default async function AdminRoomEditPage({
   params,
@@ -183,21 +183,18 @@ export default async function AdminRoomEditPage({
             >
               {isNew ? "Create Room" : "Save Changes"}
             </button>
-            {!isNew && (
-              <button
-                type="button"
-                onClick={async () => {
-                  "use server";
-                  const { deleteRoom } = await import("@/lib/actions/admin");
-                  await deleteRoom(id);
-                }}
-                className="rounded-full border border-red-200 px-6 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
-              >
-                Delete
-              </button>
-            )}
           </div>
         </form>
+        {!isNew && (
+          <form action={deleteRoom.bind(null, id)} className="mt-4">
+            <button
+              type="submit"
+              className="rounded-full border border-red-200 px-6 py-2 text-sm font-medium text-red-500 transition-colors hover:bg-red-50"
+            >
+              Delete
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

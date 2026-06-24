@@ -87,6 +87,7 @@ export async function deleteRoom(id: string) {
   await db.delete(rooms).where(eq(rooms.id, id));
   revalidatePath("/admin/rooms");
   revalidatePath("/rooms");
+  redirect("/admin/rooms");
 }
 
 // --- SERVICES ---
