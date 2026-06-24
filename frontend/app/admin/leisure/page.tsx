@@ -8,6 +8,8 @@ import {
   updateLeisureSite,
 } from "@/lib/actions/admin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminLeisurePage() {
   const allSites = await db
     .select()

@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { rooms, roomTiers } from "@/lib/schema";
 import { eq, asc } from "drizzle-orm";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminRoomsPage() {
   const allRooms = await db
     .select({

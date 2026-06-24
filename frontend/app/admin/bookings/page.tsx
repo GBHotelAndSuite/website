@@ -3,6 +3,8 @@ import { bookings, rooms, roomTiers } from "@/lib/schema";
 import { eq, desc } from "drizzle-orm";
 import { cancelBooking } from "@/lib/actions/admin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminBookingsPage() {
   const allBookings = await db
     .select({

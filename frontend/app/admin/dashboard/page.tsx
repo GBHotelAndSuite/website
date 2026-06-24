@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import { rooms, bookings, services, leisureSites } from "@/lib/schema";
 import { count, eq, sql } from "drizzle-orm";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboardPage() {
   const [roomCount, bookingCount, servicesCount, leisureCount, activeRooms] =
     await Promise.all([

@@ -4,6 +4,8 @@ import { services } from "@/lib/schema";
 import { asc } from "drizzle-orm";
 import { createService, deleteService, updateService } from "@/lib/actions/admin";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminServicesPage() {
   const allServices = await db
     .select()

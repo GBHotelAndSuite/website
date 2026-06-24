@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signOutAction } from "@/lib/actions/auth";
 
 export default function AdminLayout({
   children,
@@ -21,12 +22,13 @@ export default function AdminLayout({
           <SidebarLink href="/admin/leisure">Leisure Sites</SidebarLink>
           <SidebarLink href="/admin/bookings">Bookings</SidebarLink>
           <SidebarLink href="/admin/gallery">Gallery</SidebarLink>
+          <SidebarLink href="/admin/users">Users</SidebarLink>
           <div className="pt-4">
             <SidebarLink href="/">← Back to Site</SidebarLink>
           </div>
         </nav>
         <div className="border-t border-line px-6 py-4">
-          <form action="/api/auth/signout" method="POST">
+          <form action={signOutAction}>
             <button
               type="submit"
               className="text-sm text-muted transition-colors hover:text-heading"
