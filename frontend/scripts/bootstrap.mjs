@@ -105,13 +105,13 @@ if (rows.rows[0].count === 0) {
         ('lounge','Executive Lounge','An exclusive lounge for guests with premium amenities.','["/images/leisure/lounge-1.jpg","/images/leisure/lounge-2.jpg"]',3,1),
         ('poolside','Poolside Cabanas','Rent a private cabana by the pool.','["/images/leisure/cabana-1.jpg"]',4,1);
       INSERT OR IGNORE INTO site_settings VALUES
-        ('hotel_name','Grand Vista Hotel'),
+        ('hotel_name','GB Hotel and Suite'),
         ('hotel_tagline','Experience Luxury, Embrace Comfort'),
-        ('hotel_description','Welcome to Grand Vista Hotel, where modern luxury meets timeless elegance.'),
+        ('hotel_description','Welcome to GB Hotel and Suite, where modern luxury meets timeless elegance.'),
         ('hotel_address','42 Ahmadu Bello Way, Victoria Island'),
         ('hotel_city','Lagos, Nigeria'),
         ('hotel_phone','+234 809 000 1234'),
-        ('hotel_email','info@grandvistahotel.com'),
+        ('hotel_email','info@gbhotelandsuite.com'),
         ('check_in_time','15:00'),
         ('check_out_time','11:00'),
         ('currency','NGN');`,
@@ -119,7 +119,7 @@ if (rows.rows[0].count === 0) {
 
     const adminPassword = process.env.ADMIN_PASSWORD;
     if (adminPassword) {
-      const adminEmail = process.env.ADMIN_EMAIL || "admin@grandvista.com";
+      const adminEmail = process.env.ADMIN_EMAIL || "admin@gbhotelandsuite.com";
       const { hash } = await import("bcryptjs");
       const hashedPassword = await hash(adminPassword, 12);
       await client.execute({

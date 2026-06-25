@@ -3,12 +3,12 @@ import { db } from "@/lib/db";
 import { siteSettings } from "@/lib/schema";
 
 const DEFAULTS: Record<string, string> = {
-  hotel_name: "Grand Vista Hotel",
+  hotel_name: "GB Hotel and Suite",
   hotel_tagline: "Experience luxury, embrace comfort.",
-  hotel_address: "42 Ahmadu Bello Way, Victoria Island",
+  hotel_address: "49/50 Anglican Road Ota, Sango Ota, Ogun State.",
   hotel_city: "Lagos, Nigeria",
-  hotel_phone: "+234 809 000 1234",
-  hotel_email: "info@grandvistahotel.com",
+  hotel_phone: "+234 7010994474",
+  hotel_email: "info@gbhotelandsuite.com",
   check_in_time: "15:00",
   check_out_time: "11:00",
 };

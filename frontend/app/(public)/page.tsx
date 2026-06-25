@@ -21,7 +21,7 @@ export default function HomePage() {
             Embrace Comfort
           </h1>
           <p className="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-inverse-muted">
-            Welcome to Grand Vista Hotel, where modern luxury meets timeless
+            Welcome to GB Hotel and Suite, where modern luxury meets timeless
             elegance. Unforgettable experiences, world-class amenities, and
             exceptional service await.
           </p>
@@ -160,7 +160,7 @@ export default function HomePage() {
       <section className="py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
           <h2 className="mb-4 text-3xl font-bold tracking-tight text-heading sm:text-4xl">
-            Ready to Experience Grand Vista?
+            Ready to Experience GB Hotel and Suite?
           </h2>
           <p className="mb-8 text-lg text-muted">
             Book your stay today and discover what makes us special.

@@ -87,7 +87,7 @@ export default function AdminLayout({
             </svg>
           </button>
           <Link href="/admin/dashboard" className="text-lg font-bold tracking-tight text-heading">
-            Grand Vista CMS
+            GB Hotel and Suite CMS
           </Link>
         </div>
 

@@ -14,11 +14,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Grand Vista Hotel",
-    default: "Grand Vista Hotel",
+    template: "%s | GB Hotel and Suite",
+    default: "GB Hotel and Suite",
   },
   description:
-    "Experience luxury and comfort at Grand Vista Hotel. Explore our rooms, services, and leisure facilities.",
+    "Experience luxury and comfort at GB Hotel and Suite. Explore our rooms, services, and leisure facilities.",
 };
 
 export default function RootLayout({

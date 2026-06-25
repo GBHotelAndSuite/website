@@ -4,7 +4,7 @@ import VirtualTourViewer from "./VirtualTourViewer";
 export const metadata: Metadata = {
   title: "Virtual Tour",
   description:
-    "Explore Grand Vista Hotel with our immersive 360° panoramic virtual tour.",
+    "Explore GB Hotel and Suite with our immersive 360° panoramic virtual tour.",
 };
 
 export default function VirtualTourPage() {
@@ -15,7 +15,7 @@ export default function VirtualTourPage() {
           Virtual Tour
         </h1>
         <p className="mt-1 text-sm text-muted">
-          Drag to explore each space at Grand Vista Hotel.
+          Drag to explore each space at GB Hotel and Suite.
         </p>
       </div>
       <div className="flex-1">

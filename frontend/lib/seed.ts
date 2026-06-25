@@ -216,13 +216,13 @@ async function seed() {
 
   // Site settings
   const settings = [
-    { key: "hotel_name", value: "Grand Vista Hotel" },
+    { key: "hotel_name", value: "GB Hotel and Suite" },
     { key: "hotel_tagline", value: "Experience Luxury, Embrace Comfort" },
-    { key: "hotel_description", value: "Welcome to Grand Vista Hotel, where modern luxury meets timeless elegance. Nestled in the heart of the city, we offer an unforgettable experience with world-class amenities, exquisite dining, and exceptional service." },
+    { key: "hotel_description", value: "Welcome to GB Hotel and Suite, where modern luxury meets timeless elegance. Nestled in the heart of the city, we offer an unforgettable experience with world-class amenities, exquisite dining, and exceptional service." },
     { key: "hotel_address", value: "42 Ahmadu Bello Way, Victoria Island" },
     { key: "hotel_city", value: "Lagos, Nigeria" },
     { key: "hotel_phone", value: "+234 809 000 1234" },
-    { key: "hotel_email", value: "info@grandvistahotel.com" },
+    { key: "hotel_email", value: "info@gbhotelandsuite.com" },
     { key: "check_in_time", value: "15:00" },
     { key: "check_out_time", value: "11:00" },
     { key: "currency", value: "NGN" },
@@ -234,7 +234,7 @@ async function seed() {
   console.log("✓ Site settings seeded");
 
   // Admin user — read credentials from env vars
-  const adminEmail = process.env.ADMIN_EMAIL || "admin@grandvista.com";
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@gbhotelandsuite.com";
   const adminPassword = process.env.ADMIN_PASSWORD;
 
   if (!adminPassword) {

@@ -107,7 +107,7 @@ export default function NavBar() {
             opaque ? "text-heading" : "text-white"
           }`}
         >
-          Grand Vista
+          GB Hotel and Suite
         </Link>
 
         <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
