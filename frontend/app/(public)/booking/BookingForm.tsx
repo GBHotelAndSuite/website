@@ -27,6 +27,7 @@ export default function BookingForm() {
   const [checking, setChecking] = useState(false);
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   async function checkAvailability() {
     if (!checkIn || !checkOut) return;
@@ -80,6 +81,7 @@ export default function BookingForm() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setSubmitting(true);
 
     const form = new FormData();
     form.set("roomId", selectedRoom);
@@ -89,8 +91,14 @@ export default function BookingForm() {
     form.set("checkIn", checkIn);
     form.set("checkOut", checkOut);
     form.set("notes", notes);
-
-    await createBooking(form);
+    
+    try{
+      await createBooking(form);
+    } catch (err: any) {
+      console.error("Error creating booking:", err);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -317,9 +325,10 @@ export default function BookingForm() {
               </div>
               <button
                 type="submit"
-                className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-dark"
+                disabled={submitting}
+                className="w-full rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-accent-dark disabled:opacity-50"
               >
-                Confirm Booking
+                {submitting ? "Booking…" : "Confirm Booking"}
               </button>
               <p className="mt-2 text-xs text-subtle">
                 This is a booking request. You will be contacted to confirm

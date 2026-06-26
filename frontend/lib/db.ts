@@ -37,7 +37,8 @@ await client.executeMultiple(
     updated_at TEXT DEFAULT (datetime('now'))
   );
   CREATE TABLE IF NOT EXISTS bookings (
-    id TEXT PRIMARY KEY, room_id TEXT NOT NULL REFERENCES rooms(id),
+    id TEXT PRIMARY KEY, share_token TEXT,
+    room_id TEXT NOT NULL REFERENCES rooms(id),
     guest_name TEXT NOT NULL, guest_email TEXT NOT NULL, guest_phone TEXT,
     check_in TEXT NOT NULL, check_out TEXT NOT NULL, total_price REAL NOT NULL,
     status TEXT DEFAULT 'confirmed', notes TEXT,

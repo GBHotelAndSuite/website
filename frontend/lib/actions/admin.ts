@@ -169,6 +169,41 @@ export async function cancelBooking(id: string) {
   revalidatePath("/admin/bookings");
 }
 
+export async function updateBookingStatus(id: string, status: string) {
+  await db
+    .update(bookings)
+    .set({ status })
+    .where(eq(bookings.id, id));
+
+  revalidatePath("/admin/bookings");
+  revalidatePath(`/admin/bookings/${id}`);
+}
+
+export async function updateBooking(id: string, formData: FormData) {
+  const guestName = formData.get("guestName") as string;
+  const guestEmail = formData.get("guestEmail") as string;
+  const guestPhone = formData.get("guestPhone") as string;
+  const checkIn = formData.get("checkIn") as string;
+  const checkOut = formData.get("checkOut") as string;
+  const notes = formData.get("notes") as string;
+
+  await db
+    .update(bookings)
+    .set({
+      guestName,
+      guestEmail,
+      guestPhone: guestPhone || null,
+      checkIn,
+      checkOut,
+      notes: notes || null,
+    })
+    .where(eq(bookings.id, id));
+
+  revalidatePath("/admin/bookings");
+  revalidatePath(`/admin/bookings/${id}`);
+  redirect(`/admin/bookings/${id}`);
+}
+
 // --- ADMIN USERS ---
 
 export async function createAdminUser(formData: FormData) {

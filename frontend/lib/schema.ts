@@ -27,6 +27,7 @@ export const rooms = sqliteTable("rooms", {
 
 export const bookings = sqliteTable("bookings", {
   id: text("id").primaryKey(),
+  shareToken: text("share_token"),
   roomId: text("room_id")
     .notNull()
     .references(() => rooms.id),

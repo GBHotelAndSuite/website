@@ -6,9 +6,9 @@ import { eq } from "drizzle-orm";
 export default async function BookingConfirmationPage({
   searchParams,
 }: {
-  searchParams: Promise<{ id: string }>;
+  searchParams: Promise<{ token: string }>;
 }) {
-  const { id } = await searchParams;
+  const { token } = await searchParams;
 
   const booking = await db
     .select({
@@ -25,7 +25,7 @@ export default async function BookingConfirmationPage({
     .from(bookings)
     .innerJoin(rooms, eq(bookings.roomId, rooms.id))
     .innerJoin(roomTiers, eq(rooms.tierId, roomTiers.id))
-    .where(eq(bookings.id, id))
+    .where(eq(bookings.shareToken, token))
     .get();
 
   if (!booking) {
