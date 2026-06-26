@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 
-const LOGO_SIZE = { width: 180, height: 48 };
+const LOGO_SIZE = { width: 100, height: 40 };
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -122,11 +122,11 @@ export default function NavBar() {
             alt="GB Hotel and Suite"
             width={LOGO_SIZE.width}
             height={LOGO_SIZE.height}
-            className="h-auto w-[140px] sm:w-[180px]"
+            className="h-auto w-[100px] sm:w-[140px]"
             priority
           />
         </Link>
-        
+
         <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
           {desktopLinks}
         </nav>
