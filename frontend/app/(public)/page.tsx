@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="relative flex min-h-screen items-center justify-center -mt-20 pt-20">
+      <section className="relative flex min-h-screen items-center justify-center -mt-28 pt-20">
         <Image
           src="/hero-bg.avif"
           alt=""
@@ -15,10 +15,14 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-linear-to-br from-heading/80 to-black/70" />
         <div className="relative z-10 mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <h1 style={{ color: 'white' }} className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Experience Luxury,
-            <br />
-            Embrace Comfort
+          <h1
+            style={{
+              fontFamily: "var(--font-playfair-display)",
+              color: "white",
+            }}
+            className="mb-4 text-5xl font-bold tracking-wide sm:text-6xl lg:text-7xl"
+          >
+            GB Hotel and Suite
           </h1>
           <p className="mx-auto mb-8 max-w-xl text-lg leading-relaxed text-inverse-muted">
             Welcome to GB Hotel and Suite, where modern luxury meets timeless

@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
+const LOGO_SIZE = { width: 180, height: 48 };
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -12,7 +15,7 @@ export default function NavBar() {
 
   useEffect(() => {
     function onScroll() {
-      setScrolled(window.scrollY > 0);
+      setScrolled(window.scrollY > 10);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -49,7 +52,10 @@ export default function NavBar() {
       <Link href="/leisure" className={linkClass(pathname === "/leisure")}>
         Leisure
       </Link>
-      <Link href="/virtual-tour" className={linkClass(pathname === "/virtual-tour")}>
+      <Link
+        href="/virtual-tour"
+        className={linkClass(pathname === "/virtual-tour")}
+      >
         Virtual Tour
       </Link>
       <Link
@@ -70,13 +76,22 @@ export default function NavBar() {
       <Link href="/rooms" className={linkClass(pathname === "/rooms", true)}>
         Rooms
       </Link>
-      <Link href="/services" className={linkClass(pathname === "/services", true)}>
+      <Link
+        href="/services"
+        className={linkClass(pathname === "/services", true)}
+      >
         Services
       </Link>
-      <Link href="/leisure" className={linkClass(pathname === "/leisure", true)}>
+      <Link
+        href="/leisure"
+        className={linkClass(pathname === "/leisure", true)}
+      >
         Leisure
       </Link>
-      <Link href="/virtual-tour" className={linkClass(pathname === "/virtual-tour", true)}>
+      <Link
+        href="/virtual-tour"
+        className={linkClass(pathname === "/virtual-tour", true)}
+      >
         Virtual Tour
       </Link>
       <Link
@@ -100,17 +115,18 @@ export default function NavBar() {
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          style={{ fontFamily: "var(--font-playfair-display)" }}
-          className={`text-2xl tracking-wide transition-colors ${
-            opaque ? "text-heading" : "text-white"
-          }`}
-        >
-          GB Hotel and Suite
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
+        <Link href="/">
+          <Image
+            src="/GB Hotel Logo.png"
+            alt="GB Hotel and Suite"
+            width={LOGO_SIZE.width}
+            height={LOGO_SIZE.height}
+            className="h-auto w-[140px] sm:w-[180px]"
+            priority
+          />
         </Link>
-
+        
         <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
           {desktopLinks}
         </nav>
@@ -150,9 +166,7 @@ export default function NavBar() {
       {menuOpen && (
         <div
           className={`border-t px-4 py-4 flex flex-col gap-3 text-sm font-medium sm:hidden ${
-            opaque
-              ? "border-line bg-white"
-              : "border-white/20 bg-black/80"
+            opaque ? "border-line bg-white" : "border-white/20 bg-black/80"
           }`}
         >
           {mobileLinks}
