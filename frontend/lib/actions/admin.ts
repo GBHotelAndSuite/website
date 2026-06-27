@@ -11,8 +11,10 @@ import {
   leisureSites,
   bookings,
   adminUsers,
+  siteSettings,
 } from "@/lib/schema";
 import { eq } from "drizzle-orm";
+import { sendBookingStatusChange } from "@/lib/email";
 
 // --- ROOMS ---
 
@@ -160,20 +162,72 @@ export async function deleteLeisureSite(id: string) {
 
 // --- BOOKINGS ---
 
+async function getHotelEmail(): Promise<string> {
+  const row = await db
+    .select()
+    .from(siteSettings)
+    .where(eq(siteSettings.key, "hotel_email"))
+    .get();
+  return row?.value || "info@gbhotelandsuite.com";
+}
+
+async function getBookingForNotification(id: string) {
+  return await db
+    .select({
+      id: bookings.id,
+      guestName: bookings.guestName,
+      guestEmail: bookings.guestEmail,
+      status: bookings.status,
+      roomName: rooms.name,
+      checkIn: bookings.checkIn,
+      checkOut: bookings.checkOut,
+      totalPrice: bookings.totalPrice,
+      shareToken: bookings.shareToken,
+    })
+    .from(bookings)
+    .innerJoin(rooms, eq(bookings.roomId, rooms.id))
+    .where(eq(bookings.id, id))
+    .get();
+}
+
 export async function cancelBooking(id: string) {
+  const booking = await getBookingForNotification(id);
+  const hotelEmail = await getHotelEmail();
+
   await db
     .update(bookings)
     .set({ status: "cancelled" })
     .where(eq(bookings.id, id));
 
+  if (booking) {
+    sendBookingStatusChange(booking.guestEmail, "guest", {
+      ...booking, status: "cancelled",
+    });
+    sendBookingStatusChange(hotelEmail, "admin", {
+      ...booking, status: "cancelled",
+    });
+  }
+
   revalidatePath("/admin/bookings");
 }
 
 export async function updateBookingStatus(id: string, status: string) {
+  const booking = await getBookingForNotification(id);
+  const hotelEmail = await getHotelEmail();
+
   await db
     .update(bookings)
     .set({ status })
     .where(eq(bookings.id, id));
+
+  if (booking) {
+    sendBookingStatusChange(booking.guestEmail, "guest", {
+      ...booking, status,
+    });
+    sendBookingStatusChange(hotelEmail, "admin", {
+      ...booking, status,
+    });
+  }
 
   revalidatePath("/admin/bookings");
   revalidatePath(`/admin/bookings/${id}`);

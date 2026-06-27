@@ -5,7 +5,10 @@ import { db } from "@/lib/db";
 import { bookings, siteSettings } from "@/lib/schema";
 import { rooms } from "@/lib/schema";
 import { eq, and, lt, gte, sql } from "drizzle-orm";
-import { sendBookingConfirmation } from "@/lib/email";
+import {
+  sendBookingConfirmation,
+  sendAdminNewBookingNotification,
+} from "@/lib/email";
 import { calculateNights } from "@/lib/utils";
 
 export async function createBooking(formData: FormData) {
@@ -36,7 +39,7 @@ export async function createBooking(formData: FormData) {
     .select()
     .from(siteSettings)
     .where(
-      sql`${siteSettings.key} IN ('min_stay_nights', 'max_advance_days', 'check_in_time', 'check_out_time')`
+      sql`${siteSettings.key} IN ('min_stay_nights', 'max_advance_days', 'check_in_time', 'check_out_time', 'hotel_email')`
     )
     .all();
   const settings: Record<string, string> = {};
@@ -120,6 +123,18 @@ export async function createBooking(formData: FormData) {
     checkOutTime: settings.check_out_time || "11:00",
     roomName: room.name,
     totalPrice,
+  });
+
+  sendAdminNewBookingNotification(settings.hotel_email || "info@gbhotelandsuite.com", {
+    id: bookingId,
+    guestName,
+    guestEmail,
+    guestPhone: guestPhone || null,
+    checkIn,
+    checkOut,
+    roomName: room.name,
+    totalPrice,
+    notes: notes || null,
   });
 
   redirect(`/booking/confirmation?token=${shareToken}`);
