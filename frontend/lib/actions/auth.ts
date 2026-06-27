@@ -1,6 +1,10 @@
 "use server";
 
 import { signIn, signOut } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { adminUsers } from "@/lib/schema";
+import { eq } from "drizzle-orm";
+import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 
 export async function signOutAction() {
@@ -12,22 +16,34 @@ export async function authenticate(_prev: unknown, formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
+  if (!email || !password) {
+    return { ok: false, error: "Email and password are required." };
+  }
+
+  const user = await db
+    .select()
+    .from(adminUsers)
+    .where(eq(adminUsers.email, email))
+    .get();
+
+  if (!user) {
+    return { ok: false, error: "Invalid email or password." };
+  }
+
+  const isValid = await bcrypt.compare(password, user.hashedPassword);
+  if (!isValid) {
+    return { ok: false, error: "Invalid email or password." };
+  }
+
   try {
-    const result = await signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
 
-    if (result?.error) {
-      return { ok: false, error: "Invalid email or password." };
-    }
-
     return { ok: true, error: null };
-  } catch (e: unknown) {
-    if (e instanceof Error && e.message.includes("CredentialsSignin")) {
-      return { ok: false, error: "Invalid email or password." };
-    }
+  } catch {
     return { ok: false, error: "Something went wrong. Try again." };
   }
 }
