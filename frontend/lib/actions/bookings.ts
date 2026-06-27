@@ -2,10 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { bookings } from "@/lib/schema";
+import { bookings, siteSettings } from "@/lib/schema";
 import { rooms } from "@/lib/schema";
 import { eq, and, lt, gte, sql } from "drizzle-orm";
 import { sendBookingConfirmation } from "@/lib/email";
+import { calculateNights } from "@/lib/utils";
 
 export async function createBooking(formData: FormData) {
   const roomId = formData.get("roomId") as string;
@@ -30,6 +31,45 @@ export async function createBooking(formData: FormData) {
     throw new Error("Room not found");
   }
 
+  // Min stay / max advance validation
+  const settingsRows = await db
+    .select()
+    .from(siteSettings)
+    .where(
+      sql`${siteSettings.key} IN ('min_stay_nights', 'max_advance_days', 'check_in_time', 'check_out_time')`
+    )
+    .all();
+  const settings: Record<string, string> = {};
+  for (const row of settingsRows) {
+    settings[row.key] = row.value;
+  }
+  const minStay = parseInt(settings.min_stay_nights || "1", 10);
+  const maxAdvance = parseInt(settings.max_advance_days || "365", 10);
+
+  const checkInDate = new Date(checkIn);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  if (checkInDate < today) {
+    throw new Error("Check-in cannot be in the past");
+  }
+
+  const advanceDays = Math.round(
+    (checkInDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+  );
+  if (advanceDays > maxAdvance) {
+    throw new Error(
+      `Bookings can only be made up to ${maxAdvance} days in advance`
+    );
+  }
+
+  const nights = calculateNights(checkIn, checkOut);
+  if (nights < minStay) {
+    throw new Error(
+      `Minimum stay is ${minStay} night${minStay > 1 ? "s" : ""}`
+    );
+  }
+
   // Check for overlapping bookings (double-booking prevention)
   const conflicting = await db
     .select({ id: bookings.id })
@@ -50,13 +90,6 @@ export async function createBooking(formData: FormData) {
     );
   }
 
-  // Calculate nights
-  const start = new Date(checkIn);
-  const end = new Date(checkOut);
-  const nights = Math.max(
-    1,
-    Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
-  );
   const totalPrice = room.basePrice * nights;
 
   const bookingId = `BKG-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
@@ -83,6 +116,8 @@ export async function createBooking(formData: FormData) {
     guestEmail,
     checkIn,
     checkOut,
+    checkInTime: settings.check_in_time || "15:00",
+    checkOutTime: settings.check_out_time || "11:00",
     roomName: room.name,
     totalPrice,
   });

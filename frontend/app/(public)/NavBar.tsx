@@ -23,6 +23,7 @@ export default function NavBar() {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line
     setMenuOpen(false);
   }, [pathname]);
 

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { db } from "@/lib/db";
-import { bookings, rooms, roomTiers } from "@/lib/schema";
-import { eq } from "drizzle-orm";
+import { bookings, rooms, roomTiers, siteSettings } from "@/lib/schema";
+import { eq, sql } from "drizzle-orm";
+import { formatTime } from "@/lib/utils";
 
 export default async function BookingConfirmationPage({
   searchParams,
@@ -9,6 +10,18 @@ export default async function BookingConfirmationPage({
   searchParams: Promise<{ token: string }>;
 }) {
   const { token } = await searchParams;
+
+  const settingsRows = await db
+    .select()
+    .from(siteSettings)
+    .where(
+      sql`${siteSettings.key} IN ('check_in_time', 'check_out_time')`
+    )
+    .all();
+  const settings: Record<string, string> = {};
+  for (const row of settingsRows) {
+    settings[row.key] = row.value;
+  }
 
   const booking = await db
     .select({
@@ -82,13 +95,13 @@ export default async function BookingConfirmationPage({
             <div className="flex justify-between">
               <span className="text-muted">Check-in</span>
               <span className="font-medium text-heading">
-                {booking.checkIn}
+                {booking.checkIn} <span className="text-subtle">({formatTime(settings.check_in_time || "15:00")})</span>
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted">Check-out</span>
               <span className="font-medium text-heading">
-                {booking.checkOut}
+                {booking.checkOut} <span className="text-subtle">({formatTime(settings.check_out_time || "11:00")})</span>
               </span>
             </div>
             <div className="flex justify-between">

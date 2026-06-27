@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createBooking } from "@/lib/actions/bookings";
+import { calculateNights, formatTime } from "@/lib/utils";
 
 interface Room {
   id: string;
@@ -12,7 +13,13 @@ interface Room {
   tierName: string;
 }
 
-export default function BookingForm() {
+export default function BookingForm({
+  checkInTime,
+  checkOutTime,
+}: {
+  checkInTime: string;
+  checkOutTime: string;
+}) {
   const searchParams = useSearchParams();
   const preselectedRoom = searchParams.get("room");
 
@@ -68,15 +75,7 @@ export default function BookingForm() {
 
   const selectedRoomData = availableRooms.find((r) => r.id === selectedRoom);
   const nights =
-    checkIn && checkOut
-      ? Math.max(
-          1,
-          Math.round(
-            (new Date(checkOut).getTime() - new Date(checkIn).getTime()) /
-              (1000 * 60 * 60 * 24)
-          )
-        )
-      : 0;
+    checkIn && checkOut ? calculateNights(checkIn, checkOut) : 0;
   const totalPrice = selectedRoomData ? selectedRoomData.basePrice * nights : 0;
 
   async function handleSubmit(e: React.FormEvent) {
@@ -94,7 +93,7 @@ export default function BookingForm() {
     
     try{
       await createBooking(form);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error creating booking:", err);
     } finally {
       setSubmitting(false);
@@ -309,11 +308,11 @@ export default function BookingForm() {
                 </p>
                 <p>
                   <span className="font-medium text-heading">Check-in:</span>{" "}
-                  {checkIn}
+                  {checkIn} <span className="text-subtle">(from {formatTime(checkInTime)})</span>
                 </p>
                 <p>
                   <span className="font-medium text-heading">Check-out:</span>{" "}
-                  {checkOut}
+                  {checkOut} <span className="text-subtle">(by {formatTime(checkOutTime)})</span>
                 </p>
                 <p>
                   <span className="font-medium text-heading">Nights:</span>{" "}

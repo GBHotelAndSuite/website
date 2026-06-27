@@ -14,6 +14,7 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line
     setSidebarOpen(false);
   }, [pathname]);
 

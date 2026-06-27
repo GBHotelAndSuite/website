@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
@@ -45,11 +46,27 @@ export default async function RoomDetailPage({
         <div className="grid gap-12 lg:grid-cols-5">
           {/* Gallery */}
           <div className="lg:col-span-3">
-            <div className="aspect-[4/3] rounded-xl bg-fill" />
+            <div className="relative aspect-[4/3] rounded-xl bg-fill">
+              <Image
+                src={room.images?.[0] || "/placeholder-room.svg"}
+                alt={room.name}
+                fill
+                className="rounded-xl object-cover"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+              />
+            </div>
             {room.images && room.images.length > 1 && (
               <div className="mt-4 grid grid-cols-4 gap-2">
                 {room.images.slice(1).map((img, i) => (
-                  <div key={i} className="aspect-[4/3] rounded-lg bg-fill" />
+                  <div key={i} className="relative aspect-[4/3] rounded-lg bg-fill">
+                    <Image
+                      src={img}
+                      alt={`${room.name} ${i + 2}`}
+                      fill
+                      className="rounded-lg object-cover"
+                      sizes="25vw"
+                    />
+                  </div>
                 ))}
               </div>
             )}

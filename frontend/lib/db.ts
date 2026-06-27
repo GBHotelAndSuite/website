@@ -114,7 +114,9 @@ if (process.env.NEXT_PHASE !== "phase-production-build") {
           ('hotel_email','info@gbhotelandsuite.com'),
           ('check_in_time','15:00'),
           ('check_out_time','11:00'),
-          ('currency','NGN');`,
+          ('currency','NGN'),
+           ('min_stay_nights','1'),
+           ('max_advance_days','365');`,
       );
 
       const adminPassword = process.env.ADMIN_PASSWORD;

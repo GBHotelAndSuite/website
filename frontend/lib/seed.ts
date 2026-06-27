@@ -215,6 +215,8 @@ async function seed() {
     { key: "check_in_time", value: "15:00" },
     { key: "check_out_time", value: "11:00" },
     { key: "currency", value: "NGN" },
+    { key: "min_stay_nights", value: "1" },
+    { key: "max_advance_days", value: "365" },
   ];
 
   for (const setting of settings) {

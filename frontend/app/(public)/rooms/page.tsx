@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { rooms, roomTiers } from "@/lib/schema";
-import { eq, asc, sql } from "drizzle-orm";
+import { eq, asc } from "drizzle-orm";
 
 export default async function RoomsPage({
   searchParams,
@@ -86,7 +87,15 @@ export default async function RoomsPage({
               href={`/rooms/${room.id}`}
               className="group overflow-hidden rounded-xl border border-line transition-all hover:border-accent hover:shadow-lg"
             >
-              <div className="aspect-[4/3] bg-fill" />
+              <div className="relative aspect-[4/3] bg-fill">
+                <Image
+                  src={room.images?.[0] || "/placeholder-room.svg"}
+                  alt={room.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
               <div className="p-5">
                 <div className="mb-2 flex items-center gap-2">
                   <span className="rounded-full bg-fill px-2.5 py-0.5 text-xs font-medium text-body">

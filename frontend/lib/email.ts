@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { calculateNights, formatTime } from "@/lib/utils";
 
 const smtpUser = process.env.SMTP_USER;
 const smtpPass = process.env.SMTP_PASS;
@@ -22,6 +23,8 @@ export function sendBookingConfirmation(booking: {
   guestEmail: string;
   checkIn: string;
   checkOut: string;
+  checkInTime: string;
+  checkOutTime: string;
   roomName: string;
   totalPrice: number;
 }) {
@@ -34,6 +37,8 @@ export function sendBookingConfirmation(booking: {
     return;
   }
 
+  const nights = calculateNights(booking.checkIn, booking.checkOut);
+
   transport
     .sendMail({
       from: smtpFrom,
@@ -45,8 +50,9 @@ Your booking at GB Hotel and Suite has been confirmed.
 
 Booking ID: ${booking.id}
 Room: ${booking.roomName}
-Check-in: ${booking.checkIn}
-Check-out: ${booking.checkOut}
+Check-in: ${booking.checkIn} (from ${formatTime(booking.checkInTime)})
+Check-out: ${booking.checkOut} (by ${formatTime(booking.checkOutTime)})
+Nights: ${nights}
 Total: ₦${booking.totalPrice.toLocaleString()}
 
 View your booking:
