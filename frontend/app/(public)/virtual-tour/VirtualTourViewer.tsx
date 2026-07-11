@@ -45,25 +45,13 @@ const LOCATIONS: TourLocation[] = [
     id: "reception",
     name: "Reception",
     category: "common",
-    image: "/360/reception/lobby.jpg",
+    image: "/360/reception/panorama.jpg",
   },
   {
     id: "bar",
     name: "Bar",
     category: "common",
     image: "/360/bar/panorama.jpg",
-  },
-  {
-    id: "pool",
-    name: "Infinity Pool",
-    category: "common",
-    image: "/360/pool/panorama.jpg",
-  },
-  {
-    id: "dining",
-    name: "Fine Dining",
-    category: "common",
-    image: "/360/dining/panorama.jpg",
   },
   {
     id: "gym",
