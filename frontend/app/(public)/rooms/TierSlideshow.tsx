@@ -65,7 +65,10 @@ export default function TierSlideshow({
       </div>
       <div className="absolute inset-0 bg-linear-to-t from-heading/70 via-heading/20 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-        <h2 className="mb-1 text-2xl font-bold text-white sm:text-3xl">
+        <h2
+          style={{ color: "white" }}
+          className="mb-1 text-2xl font-bold text-white sm:text-3xl"
+        >
           {tierName}
         </h2>
         {tierDescription && (
