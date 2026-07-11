@@ -61,9 +61,7 @@ export default async function RoomsPage({
           <Link
             href="/rooms"
             className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-              !tier
-                ? "bg-accent text-white"
-                : "bg-fill text-body hover:bg-fill"
+              !tier ? "bg-accent text-white" : "bg-fill text-body hover:bg-fill"
             }`}
           >
             All
@@ -97,7 +95,7 @@ export default async function RoomsPage({
           {filteredRooms.map((room) => (
             <Link
               key={room.id}
-              href={`/rooms/${room.id}`}
+              href={`/booking?room=${room.id}`}
               className="group rounded-xl border border-line p-6 transition-all hover:border-accent hover:shadow-lg"
             >
               <div className="mb-3 flex items-center gap-2">
