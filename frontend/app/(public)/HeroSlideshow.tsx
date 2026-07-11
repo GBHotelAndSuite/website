@@ -80,7 +80,7 @@ export default function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
               playsInline
               preload="auto"
               onEnded={handleVideoEnded}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
+              className={`absolute inset-0 h-full w-full object-cover ${
                 isActive ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
             />
