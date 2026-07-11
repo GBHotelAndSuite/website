@@ -45,7 +45,7 @@ export default async function RoomDetailPage({
 
         <div className="grid gap-12 lg:grid-cols-5">
           {/* Gallery */}
-          <div className="lg:col-span-3">
+          {/* <div className="lg:col-span-3">
             <div className="relative aspect-[4/3] rounded-xl bg-fill">
               <Image
                 src={room.images?.[0] || "/placeholder-room.svg"}
@@ -70,7 +70,7 @@ export default async function RoomDetailPage({
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* Details */}
           <div className="lg:col-span-2">

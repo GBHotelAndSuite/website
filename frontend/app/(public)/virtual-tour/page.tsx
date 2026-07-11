@@ -15,7 +15,7 @@ export default function VirtualTourPage() {
           Virtual Tour
         </h1>
         <p className="mt-1 text-sm text-muted">
-          Drag to explore each space at GB Hotel and Suite.
+          Drag to explore rooms and spaces at GB Hotel and Suite.
         </p>
       </div>
       <div className="flex-1">

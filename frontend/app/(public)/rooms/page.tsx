@@ -1,8 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { db } from "@/lib/db";
 import { rooms, roomTiers } from "@/lib/schema";
 import { eq, asc } from "drizzle-orm";
+import { getGalleryCategories } from "@/lib/gallery-images";
+import TierSlideshow from "./TierSlideshow";
 
 export default async function RoomsPage({
   searchParams,
@@ -24,9 +25,6 @@ export default async function RoomsPage({
       description: rooms.description,
       basePrice: rooms.basePrice,
       capacity: rooms.capacity,
-      size: rooms.size,
-      amenities: rooms.amenities,
-      images: rooms.images,
       tierId: rooms.tierId,
       tierName: roomTiers.name,
     })
@@ -39,6 +37,12 @@ export default async function RoomsPage({
   const filteredRooms = tier
     ? allRooms.filter((r) => r.tierId === tier)
     : allRooms;
+
+  const activeTier = tier ? tiers.find((t) => t.id === tier) : null;
+  const galleryCategories = getGalleryCategories();
+  const tierGallery = tier
+    ? galleryCategories.find((c) => c.slug === tier)
+    : null;
 
   return (
     <div className="py-16">
@@ -79,40 +83,45 @@ export default async function RoomsPage({
           ))}
         </div>
 
+        {/* Tier slideshow */}
+        {tierGallery && tierGallery.images.length > 0 && activeTier && (
+          <TierSlideshow
+            images={tierGallery.images}
+            tierName={activeTier.name}
+            tierDescription={activeTier.description}
+          />
+        )}
+
         {/* Room grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredRooms.map((room) => (
             <Link
               key={room.id}
               href={`/rooms/${room.id}`}
-              className="group overflow-hidden rounded-xl border border-line transition-all hover:border-accent hover:shadow-lg"
+              className="group rounded-xl border border-line p-6 transition-all hover:border-accent hover:shadow-lg"
             >
-              <div className="relative aspect-[4/3] bg-fill">
-                <Image
-                  src={room.images?.[0] || "/placeholder-room.svg"}
-                  alt={room.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+              <div className="mb-3 flex items-center gap-2">
+                <span className="rounded-full bg-fill px-2.5 py-0.5 text-xs font-medium text-body">
+                  {room.tierName}
+                </span>
+                <span className="text-xs text-subtle">
+                  Up to {room.capacity} guest{room.capacity > 1 ? "s" : ""}
+                </span>
               </div>
-              <div className="p-5">
-                <div className="mb-2 flex items-center gap-2">
-                  <span className="rounded-full bg-fill px-2.5 py-0.5 text-xs font-medium text-body">
-                    {room.tierName}
-                  </span>
-                  <span className="text-xs text-subtle">Up to {room.capacity} guests</span>
-                </div>
-                <h3 className="mb-1 text-lg font-semibold text-heading group-hover:underline">
-                  {room.name}
-                </h3>
-                <p className="mb-4 line-clamp-2 text-sm text-muted">
-                  {room.description}
-                </p>
+              <h3 className="mb-1.5 text-lg font-semibold text-heading group-hover:underline">
+                {room.name}
+              </h3>
+              <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted">
+                {room.description}
+              </p>
+              <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-heading">
                   From ₦{room.basePrice.toLocaleString()}
                   <span className="font-normal text-subtle"> / night</span>
                 </p>
+                <span className="rounded-full bg-accent px-4 py-1.5 text-xs font-medium text-white transition-colors group-hover:bg-accent-dark">
+                  Book Now
+                </span>
               </div>
             </Link>
           ))}

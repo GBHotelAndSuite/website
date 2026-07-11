@@ -50,8 +50,11 @@ export default function NavBar() {
       <Link href="/services" className={linkClass(pathname === "/services")}>
         Services
       </Link>
-      <Link href="/leisure" className={linkClass(pathname === "/leisure")}>
+      {/* <Link href="/leisure" className={linkClass(pathname === "/leisure")}>
         Leisure
+      </Link> */}
+      <Link href="/gallery" className={linkClass(pathname === "/gallery")}>
+        Gallery
       </Link>
       <Link
         href="/virtual-tour"
@@ -83,11 +86,17 @@ export default function NavBar() {
       >
         Services
       </Link>
-      <Link
+      {/* <Link
         href="/leisure"
         className={linkClass(pathname === "/leisure", true)}
       >
         Leisure
+      </Link> */}
+      <Link
+        href="/gallery"
+        className={linkClass(pathname === "/gallery", true)}
+      >
+        Gallery
       </Link>
       <Link
         href="/virtual-tour"

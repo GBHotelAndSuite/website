@@ -1,41 +1,104 @@
 "use client";
 
-import { useState, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Sphere, useTexture } from "@react-three/drei";
-import { Vector3 } from "three";
+import { useState } from "react";
+import ReactPannellum from "react-pannellum";
 
-const LOCATIONS = [
-  { id: "lobby", name: "Grand Lobby", image: "/panorama-lobby.jpg" },
-  { id: "pool", name: "Infinity Pool", image: "/panorama-pool.jpg" },
-  { id: "suite", name: "Penthouse Suite", image: "/panorama-suite.jpg" },
-  { id: "dining", name: "Fine Dining", image: "/panorama-dining.jpg" },
-] as const;
-
-function Panorama({ image }: { image: string }) {
-  const texture = useTexture(image);
-  return (
-    <Sphere args={[500, 64, 64]} scale={[-1, 1, 1]}>
-      <meshBasicMaterial map={texture} side={1} />
-    </Sphere>
-  );
+interface TourLocation {
+  id: string;
+  name: string;
+  category: "rooms" | "common";
+  image: string;
 }
 
-function Scene({ image }: { image: string }) {
+const LOCATIONS: TourLocation[] = [
+  {
+    id: "deluxe",
+    name: "Deluxe Room",
+    category: "rooms",
+    image: "/360/rooms/deluxe/panorama.jpg",
+  },
+  {
+    id: "supreme",
+    name: "Supreme Room",
+    category: "rooms",
+    image: "/360/rooms/supreme/panorama.jpg",
+  },
+  {
+    id: "executive",
+    name: "Executive Room",
+    category: "rooms",
+    image: "/360/rooms/executive/panorama.jpg",
+  },
+  {
+    id: "presidential-living",
+    name: "Presidential — Living Room",
+    category: "rooms",
+    image: "/360/rooms/presidential/living-room/panorama.jpg",
+  },
+  {
+    id: "presidential-bed",
+    name: "Presidential — Bedroom",
+    category: "rooms",
+    image: "/360/rooms/presidential/bedroom/panorama.jpg",
+  },
+  {
+    id: "reception",
+    name: "Reception",
+    category: "common",
+    image: "/360/reception/lobby.jpg",
+  },
+  {
+    id: "bar",
+    name: "Bar",
+    category: "common",
+    image: "/360/bar/panorama.jpg",
+  },
+  {
+    id: "pool",
+    name: "Infinity Pool",
+    category: "common",
+    image: "/360/pool/panorama.jpg",
+  },
+  {
+    id: "dining",
+    name: "Fine Dining",
+    category: "common",
+    image: "/360/dining/panorama.jpg",
+  },
+  {
+    id: "gym",
+    name: "Fitness Center",
+    category: "common",
+    image: "/360/gym/panorama.jpg",
+  },
+  {
+    id: "car-park",
+    name: "Car Park",
+    category: "common",
+    image: "/360/car-park/panorama.jpg",
+  },
+];
+
+function LocationButton({
+  location,
+  isActive,
+  onClick,
+}: {
+  location: TourLocation;
+  isActive: boolean;
+  onClick: () => void;
+}) {
   return (
-    <>
-      <Suspense fallback={null}>
-        <Panorama image={image} />
-      </Suspense>
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        enableDamping
-        dampingFactor={0.08}
-        rotateSpeed={0.6}
-        target={new Vector3(0, 0, 0)}
-      />
-    </>
+    <button
+      onClick={onClick}
+      className={`whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
+        isActive
+          ? "bg-accent text-white"
+          : "bg-white text-muted hover:text-heading"
+      }`}
+    >
+      {location.name}
+    </button>
   );
 }
 
@@ -43,28 +106,60 @@ export default function VirtualTourViewer() {
   const [active, setActive] = useState<string>(LOCATIONS[0].id);
   const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[0];
 
+  const roomLocations = LOCATIONS.filter((l) => l.category === "rooms");
+  const commonLocations = LOCATIONS.filter((l) => l.category === "common");
+
   return (
     <div className="flex h-full flex-col">
-      <div className="flex flex-wrap gap-2 border-b border-line bg-surface px-4 py-3">
-        {LOCATIONS.map((loc) => (
-          <button
-            key={loc.id}
-            onClick={() => setActive(loc.id)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
-              active === loc.id
-                ? "bg-accent text-white"
-                : "bg-white text-muted hover:text-heading"
-            }`}
-          >
-            {loc.name}
-          </button>
-        ))}
+      <div className="space-y-2 border-b border-line bg-surface px-4 py-3">
+        <div>
+          <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
+            Room Tours
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {roomLocations.map((loc) => (
+              <LocationButton
+                key={loc.id}
+                location={loc}
+                isActive={active === loc.id}
+                onClick={() => setActive(loc.id)}
+              />
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
+            Common Areas
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {commonLocations.map((loc) => (
+              <LocationButton
+                key={loc.id}
+                location={loc}
+                isActive={active === loc.id}
+                onClick={() => setActive(loc.id)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="relative flex-1">
-        <Canvas camera={{ position: [0, 0, 0.1], fov: 75 }}>
-          <Scene image={current.image} />
-        </Canvas>
+        <ReactPannellum
+          key={current.id}
+          id={current.id}
+          sceneId={current.id}
+          imageSource={current.image}
+          className="h-full w-full"
+          style={{ width: "100%", height: "100%", background: "#000000" }}
+          config={{
+            autoLoad: true,
+            autoRotate: -2,
+            showZoomCtrl: true,
+            showFullscreenCtrl: true,
+            mouseZoom: false,
+          }}
+        />
         <p className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/50 px-4 py-1.5 text-xs text-white/80">
           Drag to look around
         </p>
