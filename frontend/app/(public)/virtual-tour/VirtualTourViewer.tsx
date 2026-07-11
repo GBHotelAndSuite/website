@@ -92,6 +92,7 @@ function LocationButton({
 
 export default function VirtualTourViewer() {
   const [active, setActive] = useState<string>(LOCATIONS[0].id);
+  const [navOpen, setNavOpen] = useState(true);
   const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[1];
 
   const roomLocations = LOCATIONS.filter((l) => l.category === "rooms");
@@ -99,37 +100,56 @@ export default function VirtualTourViewer() {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="space-y-2 border-b border-line bg-surface px-4 py-3">
-        <div>
-          <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
-            Room Tours
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {roomLocations.map((loc) => (
-              <LocationButton
-                key={loc.id}
-                location={loc}
-                isActive={active === loc.id}
-                onClick={() => setActive(loc.id)}
-              />
-            ))}
+      <div className="border-b border-line bg-surface px-4 py-3">
+        <button
+          onClick={() => setNavOpen(!navOpen)}
+          className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wider text-subtle hover:text-heading transition-colors"
+        >
+          <span>Locations</span>
+          <svg
+            className={`h-3 w-3 transition-transform ${navOpen ? "" : "-rotate-90"}`}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {navOpen && (
+          <div className="mt-2 space-y-2">
+            <div>
+              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
+                Room Tours
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {roomLocations.map((loc) => (
+                  <LocationButton
+                    key={loc.id}
+                    location={loc}
+                    isActive={active === loc.id}
+                    onClick={() => setActive(loc.id)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
+                Common Areas
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {commonLocations.map((loc) => (
+                  <LocationButton
+                    key={loc.id}
+                    location={loc}
+                    isActive={active === loc.id}
+                    onClick={() => setActive(loc.id)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <p className="mb-1.5 text-xs font-semibold uppercase tracking-wider text-subtle">
-            Common Areas
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {commonLocations.map((loc) => (
-              <LocationButton
-                key={loc.id}
-                location={loc}
-                isActive={active === loc.id}
-                onClick={() => setActive(loc.id)}
-              />
-            ))}
-          </div>
-        </div>
+        )}
       </div>
 
       <div className="relative flex-1">
