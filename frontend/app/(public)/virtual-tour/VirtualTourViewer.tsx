@@ -33,7 +33,7 @@ const LOCATIONS: TourLocation[] = [
     id: "presidential-living",
     name: "Presidential — Living Room",
     category: "rooms",
-    image: "/360/rooms/presidential/living-room/panorama.jpg",
+    image: "/360/rooms/presidential/living-room/panorama.JPG",
   },
   {
     id: "presidential-bed",
@@ -113,7 +113,11 @@ export default function VirtualTourViewer() {
             stroke="currentColor"
             strokeWidth={2}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
         {navOpen && (
