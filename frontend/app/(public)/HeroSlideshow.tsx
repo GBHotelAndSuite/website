@@ -6,6 +6,7 @@ import Image from "next/image";
 export interface HeroSlide {
   type: "image" | "video";
   src: string;
+  poster?: string;
 }
 
 const IMAGE_INTERVAL = 6000;
@@ -74,8 +75,10 @@ export default function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
               key={slide.src}
               ref={isActive ? videoRef : undefined}
               src={slide.src}
+              poster={slide.poster}
               muted
               playsInline
+              preload="auto"
               onEnded={handleVideoEnded}
               className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${
                 isActive ? "opacity-100" : "opacity-0 pointer-events-none"

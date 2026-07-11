@@ -4,7 +4,7 @@ import HeroSlideshow, { type HeroSlide } from "./HeroSlideshow";
 
 const HERO_SLIDES: HeroSlide[] = [
   { type: "image", src: "/hero/hero-bg.avif" },
-  { type: "video", src: "/hero/IMG_3853.MOV" },
+  { type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
 ];
 
 export default function HomePage() {
