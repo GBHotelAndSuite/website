@@ -11,24 +11,24 @@ interface TourLocation {
 }
 
 const LOCATIONS: TourLocation[] = [
-  {
-    id: "deluxe",
-    name: "Deluxe Room",
-    category: "rooms",
-    image: "/360/rooms/deluxe/panorama.jpg",
-  },
-  {
-    id: "supreme",
-    name: "Supreme Room",
-    category: "rooms",
-    image: "/360/rooms/supreme/panorama.jpg",
-  },
-  {
-    id: "executive",
-    name: "Executive Room",
-    category: "rooms",
-    image: "/360/rooms/executive/panorama.jpg",
-  },
+  // {
+  //   id: "deluxe",
+  //   name: "Deluxe Room",
+  //   category: "rooms",
+  //   image: "/360/rooms/deluxe/panorama.jpg",
+  // },
+  // {
+  //   id: "supreme",
+  //   name: "Supreme Room",
+  //   category: "rooms",
+  //   image: "/360/rooms/supreme/panorama.jpg",
+  // },
+  // {
+  //   id: "executive",
+  //   name: "Executive Room",
+  //   category: "rooms",
+  //   image: "/360/rooms/executive/panorama.jpg",
+  // },
   {
     id: "presidential-living",
     name: "Presidential — Living Room",
@@ -92,7 +92,7 @@ function LocationButton({
 
 export default function VirtualTourViewer() {
   const [active, setActive] = useState<string>(LOCATIONS[0].id);
-  const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[0];
+  const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[1];
 
   const roomLocations = LOCATIONS.filter((l) => l.category === "rooms");
   const commonLocations = LOCATIONS.filter((l) => l.category === "common");
