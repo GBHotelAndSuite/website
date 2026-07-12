@@ -103,7 +103,7 @@ export default function HeroSlideshow({ slides }: { slides: HeroSlide[] }) {
       })}
 
       {slides.length > 1 && (
-        <div className="absolute bottom-6 right-6 z-10 flex gap-1.5 sm:right-8">
+        <div className="absolute bottom-20 right-6 z-10 flex gap-1.5 sm:right-8">
           {slides.map((_, i) => (
             <button
               key={i}
