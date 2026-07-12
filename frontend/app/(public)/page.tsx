@@ -7,7 +7,7 @@ import { siteSettings } from "@/lib/schema";
 import { sql } from "drizzle-orm";
 
 const HERO_SLIDES: HeroSlide[] = [
-	{ type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
+	// { type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
 	{ type: "image", src: "/hero/hero-bg.avif" },
 ];
 
@@ -34,8 +34,7 @@ export default async function HomePage() {
 					relative -mt-[calc(93px+env(safe-area-inset-top))]
 					flex flex-col
 					h-screen
-					pt-[calc(330px+env(safe-area-inset-top))]
-					lg:h-dvh lg:px-16
+					lg:pt-[calc(330px+env(safe-area-inset-top))] lg:px-16
 				"
 			>
 				<HeroSlideshow slides={HERO_SLIDES} />
@@ -49,8 +48,9 @@ export default async function HomePage() {
 					className="
 						relative items-center justify-center
 						z-10 flex flex-row
-						lg:items-start lg:justify-between
-						xl:px-24
+						mt-34
+						lg:items-start lg:justify-between lg:mt-0
+						xl:px-40
 					"
 				>
 					<div
@@ -88,7 +88,7 @@ export default async function HomePage() {
 									}}
 									className="
 										max-w-xl
-										mb-8
+										mb-8 mx-3
 										text-xl leading-relaxed text-white
 										lg:mx-0
 									"
@@ -102,10 +102,10 @@ export default async function HomePage() {
 						{/* Buttons Div */}
 						<div
 							className="
-								items-center justify-center gap-3
+								gap-8 items-center justify-center
 								flex flex-col
 								mt-auto pb-8 pt-4
-								sm:gap-4
+								sm:gap-4 sm:justify-center
 								lg:justify-start lg:flex-row lg:mt-0 lg:pb-0
 							"
 						>

@@ -98,8 +98,8 @@ function LocationButton({
 }
 
 export default function VirtualTourViewer() {
-	const [active, setActive] = useState<string>(LOCATIONS[0].id);
-	const [navOpen, setNavOpen] = useState(true);
+	const [active, setActive] = useState<string>(LOCATIONS[1].id);
+	const [navOpen, setNavOpen] = useState(false);
 	const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[1];
 
 	const roomLocations = LOCATIONS.filter((l) => l.category === "rooms");
