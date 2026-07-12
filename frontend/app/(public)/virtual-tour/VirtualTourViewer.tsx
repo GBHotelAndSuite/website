@@ -33,7 +33,7 @@ const LOCATIONS: TourLocation[] = [
 		id: "presidential-living",
 		name: "Presidential — Living Room",
 		category: "rooms",
-		image: "/360/rooms/presidential/living-room/panorama1.jpg",
+		image: "/360/rooms/presidential/living-room/panorama.jpg",
 	},
 	{
 		id: "presidential-bed",
