@@ -34,7 +34,7 @@ export default async function HomePage() {
 					relative -mt-[calc(93px+env(safe-area-inset-top))]
 					flex flex-col
 					h-screen
-					pt-[calc(250px+env(safe-area-inset-top))]
+					pt-[calc(330px+env(safe-area-inset-top))]
 					lg:h-dvh lg:px-16
 				"
 			>
@@ -42,15 +42,13 @@ export default async function HomePage() {
 				<div
 					className="
 						absolute inset-0
-						bg-linear-to-br from-heading/80 to-black/70
+						bg-linear-to-br from-heading/80 to-black/30
 					"
 				/>
 				<div
 					className="
 						relative items-center justify-center
 						z-10 flex flex-row
-						px-4
-						sm:px-6
 						lg:items-start lg:justify-between
 						xl:px-24
 					"

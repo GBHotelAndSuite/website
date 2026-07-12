@@ -69,7 +69,7 @@ export default function HeroBookingWidget() {
 				h-12
 				mx-auto
 				bg-accent
-				rounded-full
+				rounded-full border-white/35 border-4
 				transition-[width,margin]
 				sm:h-14
 				${isOpen ? "w-[min(34rem,90vw)] mx-4 sm:mx-6" : "w-[132px] sm:w-[150px] mx-0"}

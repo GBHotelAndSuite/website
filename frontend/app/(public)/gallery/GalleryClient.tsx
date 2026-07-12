@@ -8,6 +8,17 @@ interface Props {
 	categories: GalleryCategory[];
 }
 
+const BENTO = [
+	{ cols: 2, rows: 1 },
+	{ cols: 1, rows: 2 },
+	{ cols: 1, rows: 1 },
+	{ cols: 1, rows: 1 },
+	{ cols: 1, rows: 2 },
+	{ cols: 2, rows: 1 },
+	{ cols: 1, rows: 1 },
+	{ cols: 1, rows: 1 },
+];
+
 export default function GalleryClient({ categories }: Props) {
 	const [activeTab, setActiveTab] = useState<string>("all");
 	const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -101,44 +112,46 @@ export default function GalleryClient({ categories }: Props) {
 			{currentImages.length > 0 ? (
 				<div
 					className="
-						gap-4
-						grid
-						sm:grid-cols-2
-						lg:grid-cols-3
+						grid grid-cols-2 gap-3
+						[grid-auto-rows:160px]
+						sm:[grid-auto-rows:180px]
+						lg:grid-cols-3 lg:gap-4 lg:[grid-auto-rows:200px]
 						xl:grid-cols-4
+						[grid-auto-flow:dense]
 					"
 				>
-					{currentImages.map((img, i) => (
-						<button
-							key={img.src}
-							onClick={() => openLightbox(i)}
-							className="
-								group hover:border-accent hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
-								overflow-hidden
-								bg-fill
-								rounded-xl border border-line
-								transition-all
-							"
-						>
-							<div
+					{currentImages.map((img, i) => {
+						const bento = BENTO[i % BENTO.length];
+						return (
+							<button
+								key={img.src}
+								onClick={() => openLightbox(i)}
+								style={{
+									gridColumn: `span ${bento.cols}`,
+									gridRow: `span ${bento.rows}`,
+								}}
 								className="
-									aspect-[4/3]
-									overflow-hidden
+									group overflow-hidden
+									rounded-2xl border border-line
+									focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
+									transition-all duration-300
+									hover:shadow-lg
+									[&_img]:duration-500 [&_img]:group-hover:scale-110
 								"
 							>
+								{/* eslint-disable-next-line @next/next/no-img-element */}
 								<img
 									src={img.src}
 									alt={img.alt}
 									className="
-										duration-500 group-hover:scale-110
-										object-cover
 										h-full w-full
-										transition-transform
+										object-cover
 									"
+									loading="lazy"
 								/>
-							</div>
-						</button>
-					))}
+							</button>
+						);
+					})}
 				</div>
 			) : (
 				<p

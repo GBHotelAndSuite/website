@@ -56,19 +56,20 @@ export default function NavBar() {
       <Link href="/gallery" className={linkClass(pathname === "/gallery")}>
         Gallery
       </Link>
-      <Link
-        href="/virtual-tour"
-        className={linkClass(pathname === "/virtual-tour")}
-      >
+      <Link href="/virtual-tour" className={linkClass(pathname === "/virtual-tour")}>
         Virtual Tour
       </Link>
       <Link
-        href="/booking"
-        className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-          opaque
+      	href="/booking"
+      	className={`
+      		px-5 py-2
+      		text-sm font-medium
+      		rounded-full
+      		transition-colors
+      		${opaque
             ? "bg-accent text-white hover:bg-accent-dark"
-            : "bg-white text-heading hover:bg-white/90"
-        }`}
+            : "bg-white text-heading hover:bg-white/90"}
+      	`}
       >
         Book Now
       </Link>
@@ -84,42 +85,71 @@ export default function NavBar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors pt-[env(safe-area-inset-top)] ${
-        opaque
+    	className={`
+    		sticky top-0
+    		z-50
+    		pt-[env(safe-area-inset-top)]
+    		transition-colors
+    		${opaque
           ? "border-b border-line bg-white/95 backdrop-blur-sm shadow-sm"
-          : "bg-transparent"
-      }`}
+          : "bg-transparent"}
+    	`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
+      <div
+      	className="
+      		items-center justify-between
+      		flex
+      		max-w-7xl
+      		mx-auto px-4 py-2
+      		sm:px-6
+      		lg:px-8
+      	"
+      >
         <Link href="/">
           <Image
-            src="/GB Hotel Logo.png"
-            alt="GB Hotel and Suite"
-            width={LOGO_SIZE.width}
-            height={LOGO_SIZE.height}
-            className="h-auto w-[100px] sm:w-[140px]"
-            priority
+          	src="/GB Hotel Logo.png"
+          	alt="GB Hotel and Suite"
+          	width={LOGO_SIZE.width}
+          	height={LOGO_SIZE.height}
+          	priority
+          	className="
+          		h-auto w-[100px]
+          		sm:w-[140px]
+          	"
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-medium sm:flex">
+        <nav
+        	className="
+        		items-center gap-8
+        		hidden
+        		text-sm font-medium
+        		sm:flex
+        	"
+        >
           {desktopLinks}
         </nav>
 
         <button
-          type="button"
-          onClick={() => setMenuOpen((o) => !o)}
-          className={`sm:hidden p-2 rounded-md transition-colors ${
-            opaque ? "text-heading" : "text-white"
-          }`}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        	type="button"
+        	onClick={() => setMenuOpen((o) => !o)}
+        	aria-label={menuOpen ? "Close menu" : "Open menu"}
+        	className={`
+        		p-2
+        		rounded-md
+        		transition-colors
+        		sm:hidden
+        		${opaque ? "text-heading" : "text-white"}
+        	`}
         >
           <svg
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+          	fill="none"
+          	viewBox="0 0 24 24"
+          	stroke="currentColor"
+          	strokeWidth={2}
+          	className="
+          		h-6 w-6
+          	"
           >
             {menuOpen ? (
               <path
@@ -140,28 +170,40 @@ export default function NavBar() {
 
       {menuOpen && (
         <div
-          className={`absolute inset-x-0 top-full z-50 border-t px-4 py-4 flex flex-col gap-3 text-sm font-medium shadow-lg sm:hidden ${
-            opaque ? "border-line bg-white" : "border-white/20 bg-black/80"
-          }`}
+        	className={`
+        		absolute inset-x-0 top-full gap-3
+        		z-50 flex flex-col
+        		px-4 py-4
+        		text-sm font-medium
+        		border-t
+        		shadow-lg
+        		sm:hidden
+        		${opaque ? "border-line bg-white" : "border-white/20 bg-black/80"}
+        	`}
         >
           {mobileLinks.map((link, i) => (
             <Link
-              key={link.href}
-              href={link.href}
-              className={linkClass(link.active, true)}
-              style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${i * 60}ms forwards` }}
+            	key={link.href}
+            	href={link.href}
+            	style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${i * 60}ms forwards` }}
+            	className={linkClass(link.active, true)}
             >
               {link.label}
             </Link>
           ))}
           <Link
-            href="/booking"
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors w-full text-center ${
-              opaque
+          	href="/booking"
+          	style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${mobileLinks.length * 60}ms forwards` }}
+          	className={`
+          		w-full
+          		px-5 py-2
+          		text-sm font-medium text-center
+          		rounded-full
+          		transition-colors
+          		${opaque
                 ? "bg-accent text-white hover:bg-accent-dark"
-                : "bg-white text-heading hover:bg-white/90"
-            }`}
-            style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${mobileLinks.length * 60}ms forwards` }}
+                : "bg-white text-heading hover:bg-white/90"}
+          	`}
           >
             Book Now
           </Link>
