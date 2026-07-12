@@ -35,7 +35,7 @@ export default async function HomePage() {
 					flex flex-col
 					h-screen
 					pt-[calc(250px+env(safe-area-inset-top))]
-					lg:h-dvh
+					lg:h-dvh lg:px-16
 				"
 			>
 				<HeroSlideshow slides={HERO_SLIDES} />

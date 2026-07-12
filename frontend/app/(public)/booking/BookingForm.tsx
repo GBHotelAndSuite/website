@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { createBooking } from "@/lib/actions/bookings";
 import { calculateNights, formatTime } from "@/lib/utils";
@@ -22,9 +22,11 @@ export default function BookingForm({
 }) {
   const searchParams = useSearchParams();
   const preselectedRoom = searchParams.get("room");
+  const preselectedCheckIn = searchParams.get("checkIn") || "";
+  const preselectedCheckOut = searchParams.get("checkOut") || "";
 
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [checkIn, setCheckIn] = useState(preselectedCheckIn);
+  const [checkOut, setCheckOut] = useState(preselectedCheckOut);
   const [selectedRoom, setSelectedRoom] = useState(preselectedRoom || "");
   const [guestName, setGuestName] = useState("");
   const [guestEmail, setGuestEmail] = useState("");
@@ -35,6 +37,13 @@ export default function BookingForm({
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (preselectedCheckIn && preselectedCheckOut) {
+      checkAvailability();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function checkAvailability() {
     if (!checkIn || !checkOut) return;

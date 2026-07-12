@@ -64,134 +64,190 @@ export default function HeroBookingWidget() {
 	return (
 		<div
 			className={`
-				relative self-center backdrop-blur-sm duration-500 ease-in-out
+				relative self-center backdrop-blur-sm shrink-0 duration-500 ease-in-out
 				z-20 overflow-hidden
-				rounded-md border-t border-white/10
-				transition-all
-				${isOpen ? "max-w-5xl mx-4 mb-4 sm:mx-6 bg-accent w-full" : "w-auto mx-0 mb-0 bg-accent"}
+				h-12
+				mx-auto
+				bg-accent
+				rounded-full
+				transition-[width,margin]
+				sm:h-14
+				${isOpen ? "w-[min(34rem,90vw)] mx-4 sm:mx-6" : "w-[132px] sm:w-[150px] mx-0"}
 			`}
 		>
-			{!isOpen ? (
-				<button
-					type="button"
-					onClick={() => setIsOpen(true)}
+			{/* ---- Layer 1: Book Now button ---- */}
+			<button
+				type="button"
+				onClick={() => setIsOpen(true)}
+				aria-hidden={isOpen}
+				tabIndex={isOpen ? -1 : 0}
+				className={`
+					absolute inset-0 items-center justify-center before:absolute before:inset-0 before:bg-accent-dark before:origin-left before:scale-x-0 before:transition-transform before:duration-300 hover:before:scale-x-100 duration-300
+					flex overflow-hidden
+					text-sm font-medium text-white
+					transition-opacity
+					sm:text-base
+					${isOpen ? "opacity-0 pointer-events-none" : "opacity-100 delay-150"}
+				`}
+			>
+				<span
 					className="
-						hover:bg-accent-dark
-						px-8 py-3
-						whitespace-nowrap text-sm font-medium text-white
-						bg-accent
-						rounded-full
-						transition-colors
-						sm:text-base
+						relative
+						z-10
 					"
 				>
 					Book Now
-				</button>
-			) : (
-				<div
+				</span>
+			</button>
+
+			{/* ---- Layer 2: date picker widget ---- */}
+			<div
+				aria-hidden={!isOpen}
+				className={`
+					absolute inset-0 items-center justify-center gap-1.5 duration-300
+					flex
+					px-3
+					transition-opacity
+					sm:gap-3 sm:px-6
+					${isOpen ? "opacity-100 delay-150" : "opacity-0 pointer-events-none"}
+				`}
+			>
+				{showError && (
+					<p
+						className={`
+							absolute -top-9 left-1/2 -translate-x-1/2 backdrop-blur-sm
+							px-4 py-1.5
+							whitespace-nowrap text-xs font-bold text-inverse-muted
+							bg-heading/90
+							rounded-lg
+							${
+							exiting
+							? "animate-[fade-out-down_0.4s_ease-in_forwards]"
+							: "animate-[fade-in-up_0.3s_ease-out_forwards]"
+							}
+						`}
+					>
+						{error}
+					</p>
+				)}
+
+				<label
+					htmlFor="hero-checkin"
 					className="
-						relative items-center gap-3
-						flex flex-col
-						max-w-5xl
-						mx-auto px-4 py-3
-						sm:justify-center sm:gap-4 sm:flex-row sm:px-6
+						sr-only
 					"
 				>
-					{showError && (
-						<p
-							className={`
-								absolute -top-10 left-1/2 -translate-x-1/2 backdrop-blur-sm
-								px-4 py-1.5
-								whitespace-nowrap text-xs font-bold text-inverse-muted
-								bg-heading/90
-								rounded-lg
-								${
-								exiting
-								? "animate-[fade-out-down_0.4s_ease-in_forwards]"
-								: "animate-[fade-in-up_0.3s_ease-out_forwards]"
-								}
-							`}
-						>
-							{error}
-						</p>
-					)}
-					<div
+					Check-in
+				</label>
+				<input
+					id="hero-checkin"
+					type="date"
+					value={checkIn}
+					min={today}
+					onChange={(e) => {
+						setCheckIn(e.target.value);
+						clearError();
+					}}
+					className="
+						focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent
+						flex-1
+						min-w-0
+						px-2 py-1.5
+						text-xs text-white placeholder-white/50
+						bg-white/10
+						rounded-full border border-white/20
+						sm:flex-none sm:px-3 sm:py-2 sm:text-sm
+					"
+				/>
+
+				<label
+					htmlFor="hero-checkout"
+					className="
+						sr-only
+					"
+				>
+					Check-out
+				</label>
+				<input
+					id="hero-checkout"
+					type="date"
+					value={checkOut}
+					min={checkIn || today}
+					onChange={(e) => {
+						setCheckOut(e.target.value);
+						clearError();
+					}}
+					className="
+						focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent
+						flex-1
+						min-w-0
+						px-2 py-1.5
+						text-xs text-white placeholder-white/50
+						bg-white/10
+						rounded-full border border-white/20
+						sm:flex-none sm:px-3 sm:py-2 sm:text-sm
+					"
+				/>
+
+				<button
+					type="button"
+					onClick={handleNavigate}
+					className="
+						hover:bg-accent-dark shrink-0
+						px-3 py-1.5
+						text-xs font-medium text-white
+						bg-heading/80
+						rounded-full
+						transition-colors
+						sm:px-6 sm:py-2 sm:text-sm
+					"
+				>
+					<span
 						className="
-							gap-2
-							flex flex-col
-							w-full
-							sm:items-center sm:flex-row sm:w-auto
-						"
-					>
-						<label
-							htmlFor="hero-checkin"
-							className="
-								sr-only
-							"
-						>
-							Check-in
-						</label>
-						<input
-							id="hero-checkin"
-							type="date"
-							value={checkIn}
-							min={today}
-							onChange={(e) => {
-								setCheckIn(e.target.value);
-								clearError();
-							}}
-							className="
-								focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent
-								px-3 py-2
-								text-sm text-white placeholder-white/50
-								bg-white/10
-								rounded-lg border border-white/20
-							"
-						/>
-						<label
-							htmlFor="hero-checkout"
-							className="
-								sr-only
-							"
-						>
-							Check-out
-						</label>
-						<input
-							id="hero-checkout"
-							type="date"
-							value={checkOut}
-							min={checkIn || today}
-							onChange={(e) => {
-								setCheckOut(e.target.value);
-								clearError();
-							}}
-							className="
-								focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent
-								px-3 py-2
-								text-sm text-white placeholder-white/50
-								bg-white/10
-								rounded-lg border border-white/20
-							"
-						/>
-					</div>
-					<button
-						type="button"
-						onClick={handleNavigate}
-						className="
-							hover:bg-accent-dark
-							w-full
-							px-6 py-2
-							text-sm font-medium text-white
-							bg-heading/80
-							rounded-full
-							transition-colors
-							sm:w-auto
+							hidden
+							sm:inline
 						"
 					>
 						Check Availability
-					</button>
-				</div>
-			)}
+					</span>
+					<span
+						className="
+							sm:hidden
+						"
+					>
+						Go
+					</span>
+				</button>
+
+				<button
+					type="button"
+					onClick={() => setIsOpen(false)}
+					aria-label="Close"
+					className="
+						hover:text-white hover:bg-white/10 shrink-0
+						p-1.5
+						text-white/60
+						rounded-full
+						transition-colors
+					"
+				>
+					<svg
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+						strokeWidth={2}
+						className="
+							h-4 w-4
+						"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							d="M6 18L18 6M6 6l12 12"
+						/>
+					</svg>
+				</button>
+			</div>
 		</div>
 	);
 }

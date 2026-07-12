@@ -9,18 +9,25 @@ export const metadata: Metadata = {
 
 export default function VirtualTourPage() {
   return (
-    <section className="flex h-[calc(100vh-4rem)] flex-col">
-      <div className="border-b border-line bg-surface px-4 py-6 sm:px-6 lg:px-8">
-        <h1 className="text-2xl font-bold tracking-tight text-heading">
-          Virtual Tour
-        </h1>
-        <p className="mt-1 text-sm text-muted">
-          Drag to explore rooms and spaces at GB Hotel and Suite.
-        </p>
+    <div className="py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-10 text-center">
+          <h1
+            style={{
+              fontFamily: "var(--font-cormorant-garamond)",
+            }}
+            className="mb-3 text-4xl font-bold tracking-tight text-heading"
+          >
+            Virtual Tour
+          </h1>
+          <p className="mx-auto max-w-2xl text-lg text-muted">
+            Drag to explore rooms and spaces at GB Hotel and Suite.
+          </p>
+        </div>
+        <div className="h-[75vh] min-h-[500px]">
+          <VirtualTourViewer />
+        </div>
       </div>
-      <div className="flex-1">
-        <VirtualTourViewer />
-      </div>
-    </section>
+    </div>
   );
 }

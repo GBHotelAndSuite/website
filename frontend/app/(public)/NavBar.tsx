@@ -32,7 +32,7 @@ export default function NavBar() {
   const linkClass = (active = false, block = false) =>
     `relative transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-current after:transition-all after:duration-300 hover:after:w-full ${
       block ? "block w-full" : ""
-    } ${active ? "after:w-full" : ""} ${
+    } ${active && !block ? "after:w-full" : ""} ${active && block ? "font-bold" : ""} ${
       opaque
         ? active
           ? "text-heading"
@@ -75,47 +75,12 @@ export default function NavBar() {
     </>
   );
 
-  const mobileLinks = (
-    <>
-      <Link href="/rooms" className={linkClass(pathname === "/rooms", true)}>
-        Rooms
-      </Link>
-      <Link
-        href="/services"
-        className={linkClass(pathname === "/services", true)}
-      >
-        Services
-      </Link>
-      {/* <Link
-        href="/leisure"
-        className={linkClass(pathname === "/leisure", true)}
-      >
-        Leisure
-      </Link> */}
-      <Link
-        href="/gallery"
-        className={linkClass(pathname === "/gallery", true)}
-      >
-        Gallery
-      </Link>
-      <Link
-        href="/virtual-tour"
-        className={linkClass(pathname === "/virtual-tour", true)}
-      >
-        Virtual Tour
-      </Link>
-      <Link
-        href="/booking"
-        className={`rounded-full px-5 py-2 text-sm font-medium transition-colors w-full text-center ${
-          opaque
-            ? "bg-accent text-white hover:bg-accent-dark"
-            : "bg-white text-heading hover:bg-white/90"
-        }`}
-      >
-        Book Now
-      </Link>
-    </>
-  );
+  const mobileLinks = [
+    { href: "/rooms", label: "Rooms", active: pathname === "/rooms" },
+    { href: "/services", label: "Services", active: pathname === "/services" },
+    { href: "/gallery", label: "Gallery", active: pathname === "/gallery" },
+    { href: "/virtual-tour", label: "Virtual Tour", active: pathname === "/virtual-tour" },
+  ];
 
   return (
     <header
@@ -175,11 +140,31 @@ export default function NavBar() {
 
       {menuOpen && (
         <div
-          className={`border-t px-4 py-4 flex flex-col gap-3 text-sm font-medium sm:hidden ${
+          className={`absolute inset-x-0 top-full z-50 border-t px-4 py-4 flex flex-col gap-3 text-sm font-medium shadow-lg sm:hidden ${
             opaque ? "border-line bg-white" : "border-white/20 bg-black/80"
           }`}
         >
-          {mobileLinks}
+          {mobileLinks.map((link, i) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={linkClass(link.active, true)}
+              style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${i * 60}ms forwards` }}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/booking"
+            className={`rounded-full px-5 py-2 text-sm font-medium transition-colors w-full text-center ${
+              opaque
+                ? "bg-accent text-white hover:bg-accent-dark"
+                : "bg-white text-heading hover:bg-white/90"
+            }`}
+            style={{ opacity: 0, animation: `fade-in-down 0.3s ease-out ${mobileLinks.length * 60}ms forwards` }}
+          >
+            Book Now
+          </Link>
         </div>
       )}
     </header>
