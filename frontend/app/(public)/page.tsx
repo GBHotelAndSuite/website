@@ -7,6 +7,7 @@ import { siteSettings } from "@/lib/schema";
 import { sql } from "drizzle-orm";
 
 const HERO_SLIDES: HeroSlide[] = [
+	{ type: "image", src: "/hero/2.JPG" },
 	{ type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
 	{ type: "image", src: "/hero/hero-bg.avif" },
 ];
