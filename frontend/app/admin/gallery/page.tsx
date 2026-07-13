@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function AdminGalleryPage() {
   const [uploading, setUploading] = useState(false);
-  const [images, setImages] = useState<string[]>([]);
+  const [media, setMedia] = useState<{ url: string; type: string }[]>([]);
   const [message, setMessage] = useState("");
 
   async function handleUpload(e: React.FormEvent<HTMLFormElement>) {
@@ -25,7 +25,7 @@ export default function AdminGalleryPage() {
       const result = await res.json();
 
       if (res.ok) {
-        setImages((prev) => [result.url, ...prev]);
+        setMedia((prev) => [{ url: result.url, type: result.type || "image" }, ...prev]);
         setMessage(`Uploaded: ${result.filename}`);
         fileInput.value = "";
       } else {
@@ -41,18 +41,18 @@ export default function AdminGalleryPage() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold tracking-tight text-heading">
-        Gallery / Photo Upload
+        Gallery Upload
       </h1>
 
       <form onSubmit={handleUpload} className="mb-8 max-w-md">
         <div className="mb-4">
           <label className="mb-1 block text-sm font-medium text-heading">
-            Choose an image (max 5MB)
+            Choose an image or video (max 50MB)
           </label>
           <input
             type="file"
             name="file"
-            accept="image/*"
+            accept="image/*,video/mp4,video/webm"
             required
             className="block w-full text-sm text-muted file:mr-3 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:text-sm file:font-medium file:text-white hover:file:bg-accent-dark"
           />
@@ -69,28 +69,37 @@ export default function AdminGalleryPage() {
         )}
       </form>
 
-      {images.length > 0 && (
+      {media.length > 0 && (
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {images.map((url) => (
-            <div key={url} className="overflow-hidden rounded-lg border border-line">
+          {media.map((item) => (
+            <div key={item.url} className="overflow-hidden rounded-lg border border-line">
               <div className="aspect-[4/3] bg-fill flex items-center justify-center text-xs text-subtle">
-                <img
-                  src={url}
-                  alt=""
-                  className="h-full w-full object-cover"
-                />
+                {item.type === "video" ? (
+                  <video
+                    src={item.url}
+                    className="h-full w-full object-cover"
+                    muted
+                    playsInline
+                  />
+                ) : (
+                  <img
+                    src={item.url}
+                    alt=""
+                    className="h-full w-full object-cover"
+                  />
+                )}
               </div>
               <div className="p-2">
-                <p className="truncate text-xs text-muted">{url}</p>
+                <p className="truncate text-xs text-muted">{item.url}</p>
               </div>
             </div>
           ))}
         </div>
       )}
 
-      {images.length === 0 && (
+      {media.length === 0 && (
         <p className="py-10 text-center text-sm text-subtle">
-          No uploaded images yet.
+          No uploaded media yet.
         </p>
       )}
     </div>

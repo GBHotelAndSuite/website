@@ -5,6 +5,7 @@ import { cache } from "react";
 export interface GalleryImage {
   src: string;
   alt: string;
+  type: "image" | "video";
 }
 
 export interface GalleryCategory {
@@ -14,6 +15,7 @@ export interface GalleryCategory {
 }
 
 const IMAGE_EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif"]);
+const VIDEO_EXTS = new Set([".mp4", ".webm"]);
 
 const CATEGORIES: { slug: string; label: string; dir: string }[] = [
   { slug: "bar", label: "Bar", dir: "bar" },
@@ -41,6 +43,13 @@ export const getGalleryCategories = cache((): GalleryCategory[] => {
           images.push({
             src: `/${dir}/${file}`,
             alt: `${label} — ${file.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ")}`,
+            type: "image",
+          });
+        } else if (VIDEO_EXTS.has(ext)) {
+          images.push({
+            src: `/${dir}/${file}`,
+            alt: `${label} — ${file.replace(/\.[^.]+$/, "").replace(/[-_]/g, " ")}`,
+            type: "video",
           });
         }
       }

@@ -11,18 +11,18 @@ interface TourLocation {
 }
 
 const LOCATIONS: TourLocation[] = [
-	// {
-	//   id: "deluxe",
-	//   name: "Deluxe Room",
-	//   category: "rooms",
-	//   image: "/360/rooms/deluxe/panorama.jpg",
-	// },
-	// {
-	//   id: "supreme",
-	//   name: "Supreme Room",
-	//   category: "rooms",
-	//   image: "/360/rooms/supreme/panorama.jpg",
-	// },
+	{
+		id: "deluxe",
+		name: "Deluxe Room",
+		category: "rooms",
+		image: "/360/rooms/deluxe/panorama.jpg",
+	},
+	{
+		id: "supreme",
+		name: "Supreme Room",
+		category: "rooms",
+		image: "/360/rooms/supreme/panorama.jpg",
+	},
 	// {
 	//   id: "executive",
 	//   name: "Executive Room",
@@ -106,6 +106,7 @@ export default function VirtualTourViewer() {
 	useEffect(() => {
 		if (window.innerWidth <= 1024) {
 			setHfov(75);
+			console.log(`Setting hfov to 75 for mobile, ${hfov}`);
 		}
 	}, []);
 

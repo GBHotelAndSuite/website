@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import type { GalleryImage } from "@/lib/gallery-images";
 
 interface Props {
@@ -19,6 +19,7 @@ export default function Lightbox({
   onNext,
 }: Props) {
   const image = images[currentIndex];
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -45,6 +46,14 @@ export default function Lightbox({
       document.body.style.overflow = "";
     };
   }, [handleKeyDown]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video && image?.type === "video") {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  }, [currentIndex, image?.type]);
 
   if (!image) return null;
 
@@ -74,12 +83,24 @@ export default function Lightbox({
       </button>
 
       <div className="flex max-h-[90vh] max-w-[90vw] items-center justify-center">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image.src}
-          alt={image.alt}
-          className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
-        />
+        {image.type === "video" ? (
+          /* eslint-disable-next-line jsx-a11y/media-has-caption */
+          <video
+            ref={videoRef}
+            src={image.src}
+            controls
+            autoPlay
+            muted
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+          />
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain"
+          />
+        )}
       </div>
 
       <button

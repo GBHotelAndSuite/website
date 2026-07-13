@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import type { GalleryCategory, GalleryImage } from "@/lib/gallery-images";
 import Lightbox from "./Lightbox";
 
@@ -120,26 +120,37 @@ export default function GalleryClient({ categories }: Props) {
 						[grid-auto-flow:dense]
 					"
 				>
-					{currentImages.map((img, i) => {
-						const bento = BENTO[i % BENTO.length];
-						return (
-							<button
-								key={img.src}
-								onClick={() => openLightbox(i)}
-								style={{
-									gridColumn: `span ${bento.cols}`,
-									gridRow: `span ${bento.rows}`,
-								}}
-								className="
-									group overflow-hidden
-									rounded-2xl border border-line
-									focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
-									transition-all duration-300
-									hover:shadow-lg
-									[&_img]:duration-500 [&_img]:group-hover:scale-110
-								"
-							>
-								{/* eslint-disable-next-line @next/next/no-img-element */}
+				{currentImages.map((img, i) => {
+					const bento = BENTO[i % BENTO.length];
+					const isVideo = img.type === "video";
+					return (
+						<button
+							key={img.src}
+							onClick={() => openLightbox(i)}
+							style={{
+								gridColumn: `span ${bento.cols}`,
+								gridRow: `span ${bento.rows}`,
+							}}
+							className={`
+								group overflow-hidden
+								rounded-2xl border border-line
+								focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
+								transition-all duration-300
+								hover:shadow-lg
+								${isVideo ? "" : "[&_img]:duration-500 [&_img]:group-hover:scale-110"}
+							`}
+						>
+							{isVideo ? (
+								<div className="relative h-full w-full">
+									<GalleryVideo src={img.src} />
+									<div className="absolute bottom-2 right-2 rounded-full bg-black/50 p-1.5">
+										<svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+											<path d="M8 5v14l11-7z" />
+										</svg>
+									</div>
+								</div>
+							) : (
+								/* eslint-disable-next-line @next/next/no-img-element */
 								<img
 									src={img.src}
 									alt={img.alt}
@@ -149,9 +160,10 @@ export default function GalleryClient({ categories }: Props) {
 									"
 									loading="lazy"
 								/>
-							</button>
-						);
-					})}
+							)}
+						</button>
+					);
+				})}
 				</div>
 			) : (
 				<p
@@ -204,5 +216,42 @@ function TabButton({
 		>
 			{children}
 		</button>
+	);
+}
+
+function GalleryVideo({ src }: { src: string }) {
+	const ref = useRef<HTMLVideoElement>(null);
+
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) return;
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					el.play().catch(() => {});
+				} else {
+					el.pause();
+					el.currentTime = 0;
+				}
+			},
+			{ threshold: 0.2 },
+		);
+
+		observer.observe(el);
+		return () => observer.disconnect();
+	}, []);
+
+	return (
+		/* eslint-disable-next-line jsx-a11y/media-has-caption */
+		<video
+			ref={ref}
+			src={src}
+			muted
+			loop
+			playsInline
+			preload="metadata"
+			className="h-full w-full object-cover"
+		/>
 	);
 }
