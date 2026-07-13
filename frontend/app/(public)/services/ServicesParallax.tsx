@@ -30,25 +30,19 @@ const HARDCODED_SERVICES: Service[] = [
 		gradient: "linear-gradient(135deg, #2d3436 0%, #636e72 100%)",
 	},
 	{
-		id: "spa-wellness",
-		name: "Spa & Wellness",
+		id: "internet",
+		name: "Unlimited Internet Access",
+		image: "/services/unlimited-internet-access.jpg",
 		description:
-			"Indulge in luxurious massage, facials, and holistic treatments designed to restore your body and mind. Our skilled therapists use premium products and ancient techniques for an unforgettable experience.",
-		gradient: "linear-gradient(135deg, #8B6914 0%, #D4A574 50%, #C4956A 100%)",
+			"Stay connected with complimentary high-speed Wi-Fi throughout the hotel. Stream, work, or video call without limits — our internet access is unlimited for all guests.",
+		gradient: "linear-gradient(135deg, #1E3A5F 0%, #4A90D9 50%, #00B4D8 100%)",
 	},
 	{
-		id: "fine-dining",
-		name: "Fine Dining",
+		id: "power-supply",
+		name: "24/7 Power Supply",
 		description:
-			"Savor award-winning cuisine crafted by our world-class chefs. From locally sourced ingredients to international flavors, every meal is a culinary journey in an elegant setting.",
-		gradient: "linear-gradient(135deg, #4A0E0E 0%, #8B2500 50%, #A0522D 100%)",
-	},
-	{
-		id: "infinity-pool",
-		name: "Infinity Pool",
-		description:
-			"Take a dip in our stunning infinity pool with panoramic city views. Relax on sun loungers, enjoy poolside service, and let the world melt away.",
-		gradient: "linear-gradient(135deg, #006994 0%, #00CED1 50%, #20B2AA 100%)",
+			"Enjoy uninterrupted comfort throughout your stay with our reliable round-the-clock power supply. No matter the time of day, your room is always powered and ready.",
+		gradient: "linear-gradient(135deg, #B8860B 0%, #FFD700 50%, #DAA520 100%)",
 	},
 	{
 		id: "concierge",
@@ -56,13 +50,6 @@ const HARDCODED_SERVICES: Service[] = [
 		description:
 			"24/7 personalized assistance for restaurant reservations, exclusive tours, transportation, and anything your heart desires. We make the impossible possible.",
 		gradient: "linear-gradient(135deg, #1B1464 0%, #2C3E50 50%, #34495E 100%)",
-	},
-	{
-		id: "business-center",
-		name: "Business Center",
-		description:
-			"Fully equipped meeting rooms, high-speed internet, and professional support services. Conduct business in style with our premium corporate facilities.",
-		gradient: "linear-gradient(135deg, #2C3E50 0%, #4A6741 50%, #27AE60 100%)",
 	},
 ];
 

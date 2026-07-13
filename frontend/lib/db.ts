@@ -102,12 +102,11 @@ if (process.env.NEXT_PHASE !== "phase-production-build") {
           ('north-carolina-24','executive','North Carolina','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('utah-25','executive','Utah','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now'));
         INSERT OR IGNORE INTO services VALUES
-          ('spa','Spa & Wellness','Rejuvenate your body and mind with our range of spa treatments.','spa','/images/services/spa.jpg',1,1),
-          ('restaurant','Fine Dining','Experience culinary excellence at our on-site restaurant.','restaurant','/images/services/restaurant.jpg',2,1),
-          ('pool','Infinity Pool','Take a dip in our stunning infinity pool overlooking the city.','pool','/images/services/pool.jpg',3,1),
-          ('gym','Fitness Center','Stay active in our state-of-the-art fitness center.','fitness','/images/services/gym.jpg',4,1),
-          ('concierge','Concierge Service','Our dedicated concierge team is available 24/7.','concierge','/images/services/concierge.jpg',5,1),
-          ('business','Business Center','Fully equipped business center with meeting rooms.','business','/images/services/business.jpg',6,1);
+          ('gym','Fitness Center','Stay active in our state-of-the-art fitness center.','fitness','/images/services/gym.jpg',1,1),
+          ('power-supply','24/7 Power Supply','Enjoy uninterrupted comfort with round-the-clock power supply.','power','/images/services/power.jpg',2,1),
+          ('internet','Unlimited Internet Access','Stay connected with complimentary high-speed Wi-Fi throughout the hotel.','wifi','/images/services/internet.jpg',3,1),
+          ('concierge','Concierge Service','Our dedicated concierge team is available 24/7.','concierge','/images/services/concierge.jpg',4,1),
+          ('business','Business Center','Fully equipped business center with meeting rooms.','business','/images/services/business.jpg',5,1);
         INSERT OR IGNORE INTO leisure_sites VALUES
           ('rooftop-bar','Rooftop Sky Bar','Enjoy handcrafted cocktails and panoramic views.','["/images/leisure/rooftop-1.jpg","/images/leisure/rooftop-2.jpg"]',1,1),
           ('garden','Zen Garden','A tranquil oasis in the heart of the city.','["/images/leisure/garden-1.jpg"]',2,1),

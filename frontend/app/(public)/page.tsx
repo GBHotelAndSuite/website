@@ -382,7 +382,7 @@ export default async function HomePage() {
 						"
 					>
 						{[
-							{ name: "Fine Dining", desc: "Award-winning restaurant and bar" },
+							{ name: "24/7 Power Supply", desc: "Uninterrupted comfort around the clock" },
 							{ name: "Fitness Center", desc: "State-of-the-art equipment" },
 							{ name: "Concierge", desc: "24/7 personalized assistance" },
 						].map((service, i) => (

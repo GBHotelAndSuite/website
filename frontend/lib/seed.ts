@@ -112,36 +112,28 @@ async function seed() {
   // Services
   const serviceList = [
     {
-      id: "spa",
-      name: "Spa & Wellness",
-      description: "Rejuvenate your body and mind with our range of spa treatments, massage therapies, and wellness programs. Our expert therapists use premium products to deliver a truly restorative experience.",
-      icon: "spa",
-      image: "/images/services/spa.jpg",
-      sortOrder: 1,
-    },
-    {
-      id: "restaurant",
-      name: "Fine Dining",
-      description: "Experience culinary excellence at our on-site restaurant. Our award-winning chefs craft exquisite dishes using the freshest local ingredients, paired with an extensive wine selection.",
-      icon: "restaurant",
-      image: "/images/services/restaurant.jpg",
-      sortOrder: 2,
-    },
-    {
-      id: "pool",
-      name: "Infinity Pool",
-      description: "Take a dip in our stunning infinity pool overlooking the city. Surrounded by lounge chairs and poolside service, it's the perfect spot to unwind and soak up the sun.",
-      icon: "pool",
-      image: "/images/services/pool.jpg",
-      sortOrder: 3,
-    },
-    {
       id: "gym",
       name: "Fitness Center",
       description: "Stay active in our state-of-the-art fitness center. Equipped with the latest cardio and strength training machines, free weights, and dedicated yoga studio.",
       icon: "fitness",
       image: "/images/services/gym.jpg",
-      sortOrder: 4,
+      sortOrder: 1,
+    },
+    {
+      id: "power-supply",
+      name: "24/7 Power Supply",
+      description: "Enjoy uninterrupted comfort throughout your stay with our reliable round-the-clock power supply. No matter the time of day, your room is always powered and ready.",
+      icon: "power",
+      image: "/images/services/power.jpg",
+      sortOrder: 2,
+    },
+    {
+      id: "internet",
+      name: "Unlimited Internet Access",
+      description: "Stay connected with complimentary high-speed Wi-Fi throughout the hotel. Stream, work, or video call without limits — our internet access is unlimited for all guests.",
+      icon: "wifi",
+      image: "/images/services/internet.jpg",
+      sortOrder: 3,
     },
     {
       id: "concierge",
@@ -149,7 +141,7 @@ async function seed() {
       description: "Our dedicated concierge team is available 24/7 to assist with restaurant reservations, tour bookings, transportation, and any special requests to make your stay memorable.",
       icon: "concierge",
       image: "/images/services/concierge.jpg",
-      sortOrder: 5,
+      sortOrder: 4,
     },
     {
       id: "business",
