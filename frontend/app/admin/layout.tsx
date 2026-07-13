@@ -52,10 +52,10 @@ export default function AdminLayout({
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
           <SidebarLink href="/admin/dashboard">Dashboard</SidebarLink>
           <SidebarLink href="/admin/rooms">Rooms</SidebarLink>
-          <SidebarLink href="/admin/services">Services</SidebarLink>
-          <SidebarLink href="/admin/leisure">Leisure Sites</SidebarLink>
+          {/* <SidebarLink href="/admin/services">Services</SidebarLink> */}
+          {/* <SidebarLink href="/admin/leisure">Leisure Sites</SidebarLink> */}
           <SidebarLink href="/admin/bookings">Bookings</SidebarLink>
-          <SidebarLink href="/admin/gallery">Gallery</SidebarLink>
+          {/* <SidebarLink href="/admin/gallery">Gallery</SidebarLink> */}
           <SidebarLink href="/admin/users">Users</SidebarLink>
           <div className="pt-4">
             <SidebarLink href="/">← Back to Site</SidebarLink>
