@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AnimateInView from "@/components/AnimateInView";
+import TypingText from "@/components/TypingText";
 import HeroSlideshow, { type HeroSlide } from "./HeroSlideshow";
 import HeroBookingWidget from "./HeroBookingWidget";
 import { db } from "@/lib/db";
@@ -8,8 +9,9 @@ import { sql } from "drizzle-orm";
 
 const HERO_SLIDES: HeroSlide[] = [
 	{ type: "image", src: "/hero/2.JPG" },
+	{ type: "image", src: "/hero/nightview.JPG" },
 	{ type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
-	{ type: "image", src: "/hero/hero-bg.avif" },
+	{ type: "video", src: "/hero/nightview-video.mp4" },
 ];
 
 export default async function HomePage() {
@@ -82,8 +84,11 @@ export default async function HomePage() {
 									GB Hotel and Suite
 								</h1>
 							</AnimateInView>
-							<AnimateInView animation="fade-in-up" delay={150}>
-								<p
+							<AnimateInView animation="fade-in-up" delay={300}>
+								<TypingText
+									text="Welcome to GB Hotel and Suite, where modern luxury meets timeless elegance. Unforgettable experiences, world-class amenities, and exceptional service await."
+									speed={35}
+									delay={500}
 									style={{
 										fontFamily: "var(--font-cormorant-garamond)",
 									}}
@@ -93,11 +98,7 @@ export default async function HomePage() {
 										text-xl leading-relaxed text-white
 										lg:mx-0
 									"
-								>
-									Welcome to GB Hotel and Suite, where modern luxury meets
-									timeless elegance. Unforgettable experiences, world-class
-									amenities, and exceptional service await.
-								</p>
+								/>
 							</AnimateInView>
 						</div>
 						{/* Buttons Div */}
@@ -381,15 +382,9 @@ export default async function HomePage() {
 						"
 					>
 						{[
-							{
-								name: "Spa & Wellness",
-								desc: "Massage, facials, and holistic treatments",
-							},
 							{ name: "Fine Dining", desc: "Award-winning restaurant and bar" },
-							{ name: "Infinity Pool", desc: "Panoramic city views" },
 							{ name: "Fitness Center", desc: "State-of-the-art equipment" },
 							{ name: "Concierge", desc: "24/7 personalized assistance" },
-							{ name: "Business Center", desc: "Meeting rooms and support" },
 						].map((service, i) => (
 							<AnimateInView
 								key={service.name}
@@ -475,9 +470,12 @@ export default async function HomePage() {
 							Ready to Experience GB Hotel and Suite?
 						</h2>
 						<p
+							style={{
+								fontFamily: "var(--font-cormorant-garamond)",
+							}}
 							className="
 								mb-8
-								text-lg text-muted
+								text-xl text-muted
 							"
 						>
 							Book your stay today and discover what makes us special.
