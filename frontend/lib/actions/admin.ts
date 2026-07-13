@@ -300,3 +300,25 @@ export async function deleteAdminUser(id: string) {
   revalidatePath("/admin/users");
   redirect("/admin/users");
 }
+
+// --- SITE SETTINGS ---
+
+export async function updateSiteSettings(formData: FormData) {
+  const entries = Object.fromEntries(formData);
+
+  for (const [key, value] of Object.entries(entries)) {
+    await db
+      .insert(siteSettings)
+      .values({ key, value: value as string })
+      .onConflictDoUpdate({
+        target: siteSettings.key,
+        set: { value: value as string },
+      });
+  }
+
+  revalidatePath("/admin/settings");
+  revalidatePath("/");
+  revalidatePath("/booking");
+  revalidatePath("/footer");
+  redirect("/admin/settings");
+}

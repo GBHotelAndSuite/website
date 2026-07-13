@@ -57,6 +57,7 @@ export default function AdminLayout({
           <SidebarLink href="/admin/bookings">Bookings</SidebarLink>
           {/* <SidebarLink href="/admin/gallery">Gallery</SidebarLink> */}
           <SidebarLink href="/admin/users">Users</SidebarLink>
+          <SidebarLink href="/admin/settings">Settings</SidebarLink>
           <div className="pt-4">
             <SidebarLink href="/">← Back to Site</SidebarLink>
           </div>
