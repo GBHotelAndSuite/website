@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ReactPannellum from "react-pannellum";
 
 interface TourLocation {
@@ -100,15 +100,11 @@ function LocationButton({
 export default function VirtualTourViewer() {
 	const [active, setActive] = useState<string>(LOCATIONS[1].id);
 	const [navOpen, setNavOpen] = useState(false);
-	const [hfov, setHfov] = useState(110);
+	const [hfov] = useState(() => {
+		if (typeof window !== "undefined" && window.innerWidth <= 1024) return 75;
+		return 110;
+	});
 	const current = LOCATIONS.find((l) => l.id === active) ?? LOCATIONS[1];
-
-	useEffect(() => {
-		if (window.innerWidth <= 1024) {
-			setHfov(75);
-			console.log(`Setting hfov to 75 for mobile, ${hfov}`);
-		}
-	}, []);
 
 	const roomLocations = LOCATIONS.filter((l) => l.category === "rooms");
 	const commonLocations = LOCATIONS.filter((l) => l.category === "common");
@@ -237,7 +233,7 @@ export default function VirtualTourViewer() {
 						autoLoad: true,
 						autoRotate: -2,
 						showZoomCtrl: true,
-						hfov: 85,
+						hfov: hfov,
 						showFullscreenCtrl: true,
 						mouseZoom: false,
 					}}
