@@ -12,6 +12,8 @@ const HERO_SLIDES: HeroSlide[] = [
 	{ type: "image", src: "/hero/nightview.jpg" },
 	{ type: "video", src: "/hero/drone.mp4", poster: "/hero/hero-bg.avif" },
 	{ type: "video", src: "/hero/nightview-video.mp4" },
+	{ type: "video", src: "/hero/drone-2.mp4" },
+
 ];
 
 export default async function HomePage() {
