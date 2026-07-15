@@ -106,7 +106,8 @@ if (process.env.NEXT_PHASE !== "phase-production-build") {
           ('power-supply','24/7 Power Supply','Enjoy uninterrupted comfort with round-the-clock power supply.','power','/images/services/power.jpg',2,1),
           ('internet','Unlimited Internet Access','Stay connected with complimentary high-speed Wi-Fi throughout the hotel.','wifi','/images/services/internet.jpg',3,1),
           ('concierge','Concierge Service','Our dedicated concierge team is available 24/7.','concierge','/images/services/concierge.jpg',4,1),
-          ('business','Business Center','Fully equipped business center with meeting rooms.','business','/images/services/business.jpg',5,1);
+          ('business','Business Center','Fully equipped business center with meeting rooms.','business','/images/services/business.jpg',5,1),
+          ('laundry','Laundry Service','Professional laundry and dry-cleaning services available daily.','laundry','/images/services/laundry.jpg',6,1);
         INSERT OR IGNORE INTO leisure_sites VALUES
           ('rooftop-bar','Rooftop Sky Bar','Enjoy handcrafted cocktails and panoramic views.','["/images/leisure/rooftop-1.jpg","/images/leisure/rooftop-2.jpg"]',1,1),
           ('garden','Zen Garden','A tranquil oasis in the heart of the city.','["/images/leisure/garden-1.jpg"]',2,1),

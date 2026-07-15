@@ -151,6 +151,14 @@ async function seed() {
       image: "/images/services/business.jpg",
       sortOrder: 6,
     },
+    {
+      id: "laundry",
+      name: "Laundry Service",
+      description: "Professional laundry and dry-cleaning services available daily. Enjoy fresh, perfectly pressed garments returned to your door with quick turnaround times.",
+      icon: "laundry",
+      image: "/images/services/laundry.jpg",
+      sortOrder: 7,
+    },
   ];
 
   for (const service of serviceList) {

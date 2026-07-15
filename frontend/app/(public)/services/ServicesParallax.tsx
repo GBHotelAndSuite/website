@@ -43,6 +43,7 @@ const HARDCODED_SERVICES: Service[] = [
 		description:
 			"Enjoy uninterrupted comfort throughout your stay with our reliable round-the-clock power supply. No matter the time of day, your room is always powered and ready.",
 		gradient: "linear-gradient(135deg, #B8860B 0%, #FFD700 50%, #DAA520 100%)",
+		image: "/services/power-supply.webp",
 	},
 	{
 		id: "concierge",
@@ -50,6 +51,15 @@ const HARDCODED_SERVICES: Service[] = [
 		description:
 			"24/7 personalized assistance for restaurant reservations, exclusive tours, transportation, and anything your heart desires. We make the impossible possible.",
 		gradient: "linear-gradient(135deg, #1B1464 0%, #2C3E50 50%, #34495E 100%)",
+		image: "/services/concierge.png",
+	},
+	{
+		id: "laundry",
+		name: "Laundry Service",
+		description:
+			"Professional laundry and dry-cleaning services available daily. Enjoy fresh, perfectly pressed garments returned to your door with quick turnaround times.",
+		image: "/services/laundry-room.webp",
+		gradient: "linear-gradient(135deg, #2E86AB 0%, #A23B72 50%, #F18F01 100%)",
 	},
 ];
 
