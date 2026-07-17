@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import type { GalleryImage } from "@/lib/gallery-images";
+import Lightbox from "../gallery/Lightbox";
 
 interface Props {
   images: GalleryImage[];
@@ -16,6 +17,7 @@ export default function TierSlideshow({
   tierDescription,
 }: Props) {
   const [index, setIndex] = useState(0);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval>>(undefined);
 
   useEffect(() => {
@@ -48,7 +50,11 @@ export default function TierSlideshow({
       onMouseEnter={pause}
       onMouseLeave={resume}
     >
-      <div className="relative aspect-[21/9] bg-fill">
+      <button
+        onClick={() => setLightboxIndex(index)}
+        className="group relative block aspect-[21/9] w-full cursor-pointer bg-fill"
+        aria-label="Open image in lightbox"
+      >
         {images.map((img, i) => (
           <Image
             key={img.src}
@@ -62,9 +68,14 @@ export default function TierSlideshow({
             priority={i === 0}
           />
         ))}
-      </div>
-      <div className="absolute inset-0 bg-linear-to-t from-heading/70 via-heading/20 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+        <div className="absolute right-3 top-3 z-10 rounded-full bg-black/40 p-2 text-white opacity-0 transition-opacity group-hover:opacity-100">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+          </svg>
+        </div>
+      </button>
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-heading/70 via-heading/20 to-transparent" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 p-6 sm:p-8">
         <h2
           style={{ color: "white" }}
           className="mb-1 text-2xl font-bold text-white sm:text-3xl"
@@ -92,6 +103,15 @@ export default function TierSlideshow({
             />
           ))}
         </div>
+      )}
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={images}
+          currentIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex((i) => (i! - 1 + images.length) % images.length)}
+          onNext={() => setLightboxIndex((i) => (i! + 1) % images.length)}
+        />
       )}
     </div>
   );

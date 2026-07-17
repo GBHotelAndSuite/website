@@ -32,7 +32,7 @@ const HARDCODED_SERVICES: Service[] = [
 	{
 		id: "internet",
 		name: "Unlimited Internet Access",
-		image: "/services/unlimited-internet-access.jpg",
+		image: "/services/unlimited-internet-access.webp",
 		description:
 			"Stay connected with complimentary high-speed Wi-Fi throughout the hotel. Stream, work, or video call without limits — our internet access is unlimited for all guests.",
 		gradient: "linear-gradient(135deg, #1E3A5F 0%, #4A90D9 50%, #00B4D8 100%)",
