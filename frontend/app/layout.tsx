@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   },
   description:
     "Experience luxury and comfort at GB Hotel and Suite. Explore our rooms, services, and leisure facilities.",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
