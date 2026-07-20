@@ -11,12 +11,12 @@ interface TourLocation {
 }
 
 const LOCATIONS: TourLocation[] = [
-	{
-		id: "deluxe",
-		name: "Deluxe Room",
-		category: "rooms",
-		image: "/360/rooms/deluxe/panorama.jpg",
-	},
+	// {
+	// 	id: "deluxe",
+	// 	name: "Deluxe Room",
+	// 	category: "rooms",
+	// 	image: "/360/rooms/deluxe/panorama.jpg",
+	// },
 	{
 		id: "supreme",
 		name: "Supreme Room",
