@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AnimateInView from "@/components/AnimateInView";
+import ParallaxSection from "@/components/ParallaxSection";
 import TypingText from "@/components/TypingText";
 import HeroSlideshow, { type HeroSlide } from "./HeroSlideshow";
 import HeroBookingWidget from "./HeroBookingWidget";
@@ -14,6 +15,37 @@ const HERO_SLIDES: HeroSlide[] = [
 	{ type: "video", src: "/hero/nightview-video.mp4" },
 	{ type: "video", src: "/hero/drone-2.mp4" },
 
+];
+
+const ROOM_TIERS = [
+	{
+		tier: "deluxe",
+		name: "Deluxe",
+		desc: "Premium comfort and space",
+		price: "From ₦30,000/night",
+		image: "/rooms/deluxe/DSC_0983.jpg",
+	},
+	{
+		tier: "supreme",
+		name: "Supreme",
+		desc: "Elevated luxury and style",
+		price: "From ₦35,000/night",
+		image: "/rooms/supreme/DSC_1034.JPG",
+	},
+	{
+		tier: "executive",
+		name: "Executive",
+		desc: "Refined executive comfort",
+		price: "From ₦40,000/night",
+		image: "/rooms/executive/1.jpg",
+	},
+	{
+		tier: "presidential",
+		name: "Presidential",
+		desc: "Ultimate luxury living",
+		price: "From ₦70,000/night",
+		image: "/rooms/presidential/1.jpg",
+	},
 ];
 
 export default async function HomePage() {
@@ -178,15 +210,12 @@ export default async function HomePage() {
 			</section>
 
 			{/* Room Tiers Preview */}
-			<section
-				className="
-					py-20
-				"
-			>
+			<section>
 				<div
 					className="
 						max-w-7xl
 						mx-auto px-4
+						pt-20 pb-12
 						sm:px-6
 						lg:px-8
 					"
@@ -230,35 +259,10 @@ export default async function HomePage() {
 							gap-6
 							grid
 							sm:grid-cols-2
-							lg:grid-cols-4
+							lg:hidden
 						"
 					>
-						{[
-							{
-								tier: "deluxe",
-								name: "Deluxe",
-								desc: "Premium comfort and space",
-								price: "From ₦30,000/night",
-							},
-							{
-								tier: "supreme",
-								name: "Supreme",
-								desc: "Elevated luxury and style",
-								price: "From ₦35,000/night",
-							},
-							{
-								tier: "executive",
-								name: "Executive",
-								desc: "Refined executive comfort",
-								price: "From ₦40,000/night",
-							},
-							{
-								tier: "presidential",
-								name: "Presidential",
-								desc: "Ultimate luxury living",
-								price: "From ₦70,000/night",
-							},
-						].map((tier, i) => (
+						{ROOM_TIERS.map((tier, i) => (
 							<AnimateInView
 								key={tier.tier}
 								animation="fade-in-up"
@@ -301,28 +305,51 @@ export default async function HomePage() {
 							</AnimateInView>
 						))}
 					</div>
+				</div>
+
+				<div
+					className="
+						hidden
+						lg:block
+					"
+				>
+					{ROOM_TIERS.map((tier, i) => (
+						<ParallaxSection
+							key={tier.tier}
+							image={tier.image}
+							title={tier.name}
+							description={tier.desc}
+							price={tier.price}
+							cta={{
+								label: "Book Now",
+								href: `/rooms?tier=${tier.tier}`,
+							}}
+							index={i}
+						/>
+					))}
+				</div>
+
+				<div
+					className="
+						py-20
+						text-center
+					"
+				>
 					<AnimateInView animation="fade-in-up" delay={500}>
-						<div
+						<Link
+							href="/rooms"
 							className="
-								mt-10
-								text-center
+								hover:bg-accent-dark
+								inline-flex
+								px-8 py-3
+								font-medium text-white
+								bg-accent
+								rounded-full
+								transition-colors
 							"
 						>
-							<Link
-								href="/rooms"
-								className="
-									hover:bg-accent-dark
-									inline-flex
-									px-8 py-3
-									font-medium text-white
-									bg-accent
-									rounded-full
-									transition-colors
-								"
-							>
-								View All Rooms
-							</Link>
-						</div>
+							View All Rooms
+						</Link>
 					</AnimateInView>
 				</div>
 			</section>

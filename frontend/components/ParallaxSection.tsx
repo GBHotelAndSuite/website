@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import {
 	useScroll,
@@ -13,6 +14,8 @@ interface ParallaxSectionProps {
 	gradient?: string;
 	title: string;
 	description: string;
+	price?: string;
+	cta?: { label: string; href: string };
 	reverse?: boolean;
 	index: number;
 }
@@ -22,6 +25,8 @@ export default function ParallaxSection({
 	gradient,
 	title,
 	description,
+	price,
+	cta,
 	reverse = false,
 	index,
 }: ParallaxSectionProps) {
@@ -71,7 +76,12 @@ export default function ParallaxSection({
 					px-6
 					sm:px-12
 					lg:px-24
-					${reverse ? "items-center justify-end text-right" : "items-center justify-start"}
+					items-center
+					${cta
+						? "justify-between gap-6 text-left"
+						: reverse
+							? "justify-end text-right"
+							: "justify-start"}
 				`}
 			>
 				<div
@@ -105,7 +115,7 @@ export default function ParallaxSection({
 							color: "white",
 						}}
 						className="
-							mb-4
+							mb-2
 							text-4xl font-bold tracking-tight text-white
 							sm:text-5xl
 							lg:text-6xl
@@ -114,11 +124,27 @@ export default function ParallaxSection({
 						{title}
 					</motion.h2>
 
+					{price && (
+						<motion.p
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							viewport={{ once: true, amount: 0.3 }}
+							transition={{ duration: 0.6, delay: 0.3 }}
+							className="
+								mb-3
+								text-lg font-semibold text-white
+								sm:text-xl
+							"
+						>
+							{price}
+						</motion.p>
+					)}
+
 					<motion.p
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, amount: 0.3 }}
-						transition={{ duration: 0.6, delay: 0.35 }}
+						transition={{ duration: 0.6, delay: 0.45 }}
 						className="
 							text-lg leading-relaxed text-white/80
 							sm:text-xl
@@ -127,6 +153,34 @@ export default function ParallaxSection({
 						{description}
 					</motion.p>
 				</div>
+
+				{cta && (
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, amount: 0.3 }}
+						transition={{ duration: 0.6, delay: 0.55 }}
+						className="
+							shrink-0
+						"
+					>
+						<Link
+							href={cta.href}
+							className="
+								hover:bg-fill
+								inline-flex
+								px-8 py-3
+								font-medium text-heading
+								bg-white
+								rounded-full
+								shadow-lg shadow-black/40
+								transition-colors
+							"
+						>
+							{cta.label}
+						</Link>
+					</motion.div>
+				)}
 			</motion.div>
 		</section>
 	);
