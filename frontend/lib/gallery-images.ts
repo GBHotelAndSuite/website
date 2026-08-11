@@ -25,6 +25,7 @@ const CATEGORIES: { slug: string; label: string; dir: string }[] = [
   { slug: "deluxe", label: "Deluxe", dir: "rooms/deluxe" },
   { slug: "supreme", label: "Supreme", dir: "rooms/supreme" },
   { slug: "executive", label: "Executive", dir: "rooms/executive" },
+  { slug: "mini-suite", label: "Mini Suite", dir: "rooms/mini-suite" },
   { slug: "presidential", label: "Presidential", dir: "rooms/presidential" },
 ];
 

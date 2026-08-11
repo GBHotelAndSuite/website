@@ -40,6 +40,13 @@ const ROOM_TIERS = [
 		image: "/rooms/executive/1.jpg",
 	},
 	{
+		tier: "mini-suite",
+		name: "Mini Suite",
+		desc: "Compact comfort with modern elegance",
+		price: "From ₦45,000/night",
+		image: "/rooms/mini-suite/2026_08_11_17_27_IMG_4942.JPG",
+	},
+	{
 		tier: "presidential",
 		name: "Presidential",
 		desc: "Ultimate luxury living",

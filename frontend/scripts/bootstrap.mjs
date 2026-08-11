@@ -72,7 +72,8 @@ if (rows.rows[0].count === 0) {
         ('deluxe','Deluxe','Premium comfort and space. Perfect for business and leisure travelers.',1),
         ('supreme','Supreme','Elevated luxury with sophisticated interiors and premium amenities.',2),
         ('executive','Executive','Refined elegance with exclusive executive privileges.',3),
-        ('presidential','Presidential','The pinnacle of luxury living with panoramic views and personalized butler service.',4);
+        ('mini-suite','Mini Suite','A chic, compact suite designed for efficiency and comfort — perfect for short stays.',4),
+        ('presidential','Presidential','The pinnacle of luxury living with panoramic views and personalized butler service.',5);
       INSERT OR IGNORE INTO rooms VALUES
         ('colorado-5','deluxe','Colorado','A comfortable room in the Deluxe category.',30000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
         ('california-4','deluxe','California','A comfortable room in the Deluxe category.',30000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
@@ -97,7 +98,8 @@ if (rows.rows[0].count === 0) {
         ('oregon-21','executive','Oregon','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
         ('vermont-23','executive','Vermont','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
         ('north-carolina-24','executive','North Carolina','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
-        ('utah-25','executive','Utah','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now'));
+        ('utah-25','executive','Utah','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
+        ('msu-451','mini-suite','Mini Suite','A comfortable room in the Mini Suite category.',45000,2,NULL,'[]','[]',1,datetime('now'),datetime('now'));
       INSERT OR IGNORE INTO services VALUES
         ('gym','Fitness Center','Stay active in our state-of-the-art fitness center.','fitness','/images/services/gym.jpg',1,1),
         ('power-supply','24/7 Power Supply','Enjoy uninterrupted comfort with round-the-clock power supply.','power','/images/services/power.jpg',2,1),

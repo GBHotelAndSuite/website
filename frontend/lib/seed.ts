@@ -33,10 +33,16 @@ async function seed() {
       sortOrder: 3,
     },
     {
+      id: "mini-suite",
+      name: "Mini Suite",
+      description: "A chic, compact suite designed for efficiency and comfort — perfect for short stays.",
+      sortOrder: 4,
+    },
+    {
       id: "presidential",
       name: "Presidential",
       description: "The pinnacle of luxury living with panoramic views and personalized butler service.",
-      sortOrder: 4,
+      sortOrder: 5,
     },
   ];
 
@@ -90,6 +96,17 @@ async function seed() {
       size: 55,
       amenities: ["Separate Living Area", "King Bed", "Free Wi-Fi", "Air Conditioning", "Smart TV", "Mini Bar", "Coffee Machine", "Rain Shower", "Workspace"],
       images: ["/images/rooms/deluxe-1.jpg", "/images/rooms/deluxe-2.jpg"],
+    },
+    {
+      id: "msu-451",
+      tierId: "mini-suite",
+      name: "Mini Suite",
+      description: "A chic, compact suite with a queen bed, stylish interiors, and everything you need for a smart, comfortable stay.",
+      basePrice: 45000,
+      capacity: 2,
+      size: 30,
+      amenities: ["Queen Bed", "Free Wi-Fi", "Air Conditioning", "Smart TV", "Mini Bar", "Rain Shower", "Workspace"],
+      images: ["/images/rooms/mini-suite-1.jpg", "/images/rooms/mini-suite-2.jpg"],
     },
     {
       id: "pen-501",

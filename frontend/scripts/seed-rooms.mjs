@@ -35,13 +35,15 @@ const rooms = [
   { id: "new-mexico-13",    tier: "executive", name: "New Mexico",     price: 40000 },
   { id: "texas-15",         tier: "executive", name: "Texas",          price: 40000 },
   { id: "washington-17",    tier: "executive", name: "Washington",     price: 40000 },
-  { id: "missouri-18",      tier: "executive", name: "Missouri",       price: 40000 },
   { id: "iowa-19",          tier: "executive", name: "Iowa",           price: 40000 },
   { id: "ohio-20",          tier: "executive", name: "Ohio",           price: 40000 },
   { id: "oregon-21",        tier: "executive", name: "Oregon",         price: 40000 },
   { id: "vermont-23",       tier: "executive", name: "Vermont",        price: 40000 },
   { id: "north-carolina-24",tier: "executive", name: "North Carolina", price: 40000 },
   { id: "utah-25",          tier: "executive", name: "Utah",           price: 40000 },
+
+  // ── Mini Suite (₦45,000) ──
+  { id: "missouri-18",      tier: "mini-suite", name: "Missouri",      price: 45000 },
 ];
 
 try {
@@ -51,7 +53,11 @@ try {
 
   console.log(`Inserting ${rooms.length} rooms...`);
   for (const room of rooms) {
-    const description = `A comfortable room in the ${room.tier.charAt(0).toUpperCase() + room.tier.slice(1)} category.`;
+    const tierLabel = room.tier
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    const description = `A comfortable room in the ${tierLabel} category.`;
     await client.execute({
       sql: `INSERT INTO rooms (id, tier_id, name, description, base_price, capacity, size, amenities, images, is_active, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, 2, NULL, '[]', '[]', 1, datetime('now'), datetime('now'))`,
