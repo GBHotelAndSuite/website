@@ -39,10 +39,16 @@ async function seed() {
       sortOrder: 4,
     },
     {
+      id: "twin-bed",
+      name: "Twin Bed",
+      description: "Two comfortable single beds, ideal for friends or colleagues travelling together.",
+      sortOrder: 5,
+    },
+    {
       id: "presidential",
       name: "Presidential",
       description: "The pinnacle of luxury living with panoramic views and personalized butler service.",
-      sortOrder: 5,
+      sortOrder: 6,
     },
   ];
 

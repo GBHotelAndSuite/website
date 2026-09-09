@@ -76,7 +76,8 @@ if (process.env.NEXT_PHASE !== "phase-production-build") {
           ('supreme','Supreme','Elevated luxury with sophisticated interiors and premium amenities.',2),
           ('executive','Executive','Refined elegance with exclusive executive privileges.',3),
           ('mini-suite','Mini Suite','A chic, compact suite designed for efficiency and comfort — perfect for short stays.',4),
-          ('presidential','Presidential','The pinnacle of luxury living with panoramic views and personalized butler service.',5);
+          ('presidential','Presidential','The pinnacle of luxury living with panoramic views and personalized butler service.',6),
+          ('twin-bed','Twin Bed','Two comfortable single beds, ideal for friends or colleagues travelling together.',5);
         INSERT OR IGNORE INTO rooms VALUES
           ('colorado-5','deluxe','Colorado','A comfortable room in the Deluxe category.',30000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('california-4','deluxe','California','A comfortable room in the Deluxe category.',30000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
@@ -100,7 +101,7 @@ if (process.env.NEXT_PHASE !== "phase-production-build") {
           ('ohio-20','executive','Ohio','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('oregon-21','executive','Oregon','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('vermont-23','executive','Vermont','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
-          ('north-carolina-24','executive','North Carolina','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
+          ('north-carolina-24','twin-bed','North Carolina','A comfortable room in the Twin Bed category.',65000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('utah-25','executive','Utah','A comfortable room in the Executive category.',40000,2,NULL,'[]','[]',1,datetime('now'),datetime('now')),
           ('msu-451','mini-suite','Mini Suite','A comfortable room in the Mini Suite category.',45000,2,NULL,'[]','[]',1,datetime('now'),datetime('now'));
         INSERT OR IGNORE INTO services VALUES

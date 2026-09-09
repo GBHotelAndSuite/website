@@ -47,6 +47,13 @@ const ROOM_TIERS = [
 		image: "/rooms/mini-suite/2026_08_11_17_27_IMG_4942.JPG",
 	},
 	{
+		tier: "twin-bed",
+		name: "Twin Bed",
+		desc: "Two single beds, perfect for friends and colleagues",
+		price: "From ₦65,000/night",
+		image: "/rooms/twin-bed/1.jpg",
+	},
+	{
 		tier: "presidential",
 		name: "Presidential",
 		desc: "Ultimate luxury living",

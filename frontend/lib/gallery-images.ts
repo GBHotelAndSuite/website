@@ -27,6 +27,7 @@ const CATEGORIES: { slug: string; label: string; dir: string }[] = [
   { slug: "executive", label: "Executive", dir: "rooms/executive" },
   { slug: "mini-suite", label: "Mini Suite", dir: "rooms/mini-suite" },
   { slug: "presidential", label: "Presidential", dir: "rooms/presidential" },
+  { slug: "twin-bed", label: "Twin Bed", dir: "rooms/twin-bed" },
 ];
 
 export const getGalleryCategories = cache((): GalleryCategory[] => {
